@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SENTINEL-ALERT // AI Fake Emergency Alert Detector</title>
+  <meta name="description" content="User-friendly AI-powered emergency alert verification platform. Instantly check if an emergency message or viral forward is fake, exaggerated, or authentic.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- AUTHENTICATION GATE -->
+  <section class="login-screen" id="login-screen" aria-labelledby="login-title">
+    <div class="login-grid-lines" aria-hidden="true"></div>
+    <div class="login-shell">
+      <div class="login-brand-block">
+        <a href="#" class="brand-logo" aria-label="Sentinel Alert">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M12 8v4"/>
+              <path d="M12 16h.01"/>
+            </svg>
+            <span class="pulse-ring"></span>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">SENTINEL<span class="accent-text">ALERT</span></span>
+            <span class="brand-subtitle">AI EMERGENCY VERIFIER</span>
+          </div>
+        </a>
+        <div class="login-signal" aria-hidden="true">
+          <span class="signal-line"></span>
+          <span class="signal-line"></span>
+          <span class="signal-line"></span>
+          <span class="signal-line"></span>
+          <span class="signal-line"></span>
+        </div>
+        <p class="login-eyebrow">SECURE VERIFICATION CONSOLE <span>///</span> 2026</p>
+        <h1 id="login-title">Keep your signal clear.</h1>
+        <p class="login-intro">Sign in to access your private alert verification workspace, saved analyses, and community safety tools.</p>
+        <div class="login-proof-row">
+          <span><b class="status-dot online"></b> Offline-ready</span>
+          <span><b class="status-dot online"></b> Private by design</span>
+        </div>
+      </div>
+
+      <div class="login-card">
+        <div class="login-card-heading">
+          <span class="section-tag">ACCESS PORTAL</span>
+          <h2>Welcome back</h2>
+          <p>Enter your credentials to continue.</p>
+        </div>
+        <form id="login-form" class="login-form" novalidate>
+          <div class="login-field">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" autocomplete="username" placeholder="Choose a username" required>
+          </div>
+          <div class="login-identity-grid">
+            <div class="login-field">
+              <label for="login-first-name">First name</label>
+              <input type="text" id="login-first-name" autocomplete="given-name" placeholder="First name" required>
+            </div>
+            <div class="login-field">
+              <label for="login-last-name">Last name</label>
+              <input type="text" id="login-last-name" autocomplete="family-name" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="login-field">
+            <label for="login-email">Email address</label>
+            <input type="email" id="login-email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+          <div class="login-field">
+            <div class="login-label-row">
+              <label for="login-password">Password</label>
+              <button type="button" class="login-text-btn" id="forgot-password-btn">Forgot password?</button>
+            </div>
+            <div class="password-input-wrap">
+              <input type="password" id="login-password" autocomplete="current-password" placeholder="Enter your password" required minlength="6">
+              <button type="button" class="password-toggle" id="password-toggle" aria-label="Show password">SHOW</button>
+            </div>
+          </div>
+          <label class="remember-row"><input type="checkbox" id="remember-login"> <span>Keep me signed in on this device</span></label>
+          <p class="login-error" id="login-error" role="alert"></p>
+          <button type="submit" class="btn btn-primary login-submit">Sign in <span aria-hidden="true">&rarr;</span></button>
+        </form>
+        <div class="login-divider"><span>or</span></div>
+        <button type="button" class="btn btn-outline login-guest-btn" id="guest-login-btn">Continue as guest</button>
+        <p class="login-footnote">No account required for basic verification.</p>
+      </div>
+    </div>
+    <div class="login-footer"><span>© 2026 SENTINEL-ALERT</span><span>CLIENT-SIDE ENCRYPTED SESSION</span></div>
+  </section>
+
+  <!-- TOP APP BAR / NAVIGATION -->
+  <header class="app-header" id="header">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo" aria-label="Sentinel Alert Home">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M12 8v4"/>
+            <path d="M12 16h.01"/>
+          </svg>
+          <span class="pulse-ring"></span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SENTINEL<span class="accent-text">ALERT</span></span>
+          <span class="brand-subtitle">AI EMERGENCY VERIFIER</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#detector" class="nav-link">Verify Alert</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#dashboard" class="nav-link">Statistics</a></li>
+          <li><a href="#history" class="nav-link">History</a></li>
+          <li><a href="#profile" class="nav-link">Profile</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Quick Guide Button -->
+        <button id="guide-modal-btn" class="icon-btn" title="Quick User Guide" aria-label="Quick user guide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-btn" class="icon-btn" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- API Config Button -->
+        <button id="api-modal-btn" class="btn btn-outline-sm" title="Configure AI API or View Status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span class="engine-badge" id="engine-status-badge">NLP Engine</span>
+        </button>
+
+        <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle Mobile Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- LIVE GLOBAL STATUS BANNER -->
+  <div class="system-status-ticker">
+    <div class="ticker-content">
+      <span class="ticker-item"><span class="status-dot online"></span> <strong>STATUS:</strong> AI HEURISTICS V2.5 READY</span>
+      <span class="ticker-item"><span class="status-dot"></span> <strong>PRIVACY:</strong> 100% PRIVATE • ZERO DATA HARVESTING</span>
+      <span class="ticker-item"><span class="status-dot alert"></span> <strong>TIP:</strong> PASTE ANY SUSPICIOUS FORWARD TO CHECK AUTHENTICITY</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section section-view" id="hero">
+      <div class="container hero-container">
+        <div class="hero-badge">
+          <span class="badge-icon">🛡️</span>
+          <span>SMART CITIZEN EMERGENCY VERIFICATION PORTAL</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Is That Emergency Alert Real? <br>
+          <span class="gradient-text">Verify Before You Panic or Forward.</span>
+        </h1>
+        
+        <p class="hero-description">
+          Received an alarming WhatsApp forward, SMS warning, or viral post? Sentinel-Alert analyzes linguistic red flags, unverified authority claims, and fake urgency in seconds to protect you from crisis misinformation.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#detector" class="btn btn-primary btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            Verify An Alert Now
+          </a>
+          <button type="button" id="hero-demo-btn" class="btn btn-secondary btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Try Instant Demo
+          </button>
+        </div>
+
+        <!-- Quick Features Grid -->
+        <div class="hero-metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">1-Click</div>
+            <div class="metric-label">Instant Risk Verdict</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">🎤 Voice</div>
+            <div class="metric-label">Speech Input & Audio Readout</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">💬 Debunk</div>
+            <div class="metric-label">WhatsApp Family Reply Generator</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">100% Free</div>
+            <div class="metric-label">Private & Works Offline</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALERT DETECTOR SECTION (MAIN APPLICATION INTERFACE) -->
+    <section class="detector-section section-view" id="detector">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">EASY EMERGENCY DETECTOR</div>
+          <h2 class="section-title">Paste & Verify Alert Message</h2>
+          <p class="section-subtitle">Simply paste your message or choose one of our demonstration examples below.</p>
+        </div>
+
+        <!-- PRESET SAMPLES BAR -->
+        <div class="samples-preset-container">
+          <div class="samples-header">
+            <span class="samples-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Quick Demonstration Examples (Click to Test):
+            </span>
+            <span class="demo-notice">1-click instant test</span>
+          </div>
+          
+          <div class="sample-chips-grid">
+            <button type="button" class="sample-chip" data-sample="1">
+              <span class="chip-dot red"></span>
+              <span class="chip-text">Sample 1: Earthquake Rumor</span>
+              <span class="chip-tag red">High Risk</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="2">
+              <span class="chip-dot red"></span>
+              <span class="chip-text">Sample 2: Mobile Network Shutdown</span>
+              <span class="chip-tag orange">Suspicious</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="3">
+              <span class="chip-dot yellow"></span>
+              <span class="chip-text">Sample 3: Rainfall Advisory</span>
+              <span class="chip-tag yellow">Needs Verification</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="4">
+              <span class="chip-dot green"></span>
+              <span class="chip-text">Sample 4: Official Flood Warning</span>
+              <span class="chip-tag green">Trustworthy</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="5">
+              <span class="chip-dot red"></span>
+              <span class="chip-text">Sample 5: Viral Attack Hoax</span>
+              <span class="chip-tag red">Critical Risk</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- MAIN DETECTOR FORM CARD -->
+        <div class="detector-card card">
+          <form id="detector-form" novalidate>
+            
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="alert-text" class="form-label">
+                  <span class="required-star">*</span> Emergency Alert Text / Forwarded Message:
+                </label>
+                <div class="char-count-wrapper">
+                  <span id="char-count">0</span> / <span id="char-max">2000</span> chars
+                </div>
+              </div>
+
+              <div class="textarea-wrapper">
+                <textarea 
+                  id="alert-text" 
+                  name="alertText" 
+                  rows="6" 
+                  placeholder="Paste or type the emergency message here... (e.g., 'URGENT!!! Massive earthquake will definitely hit Chennai tonight at 10 PM. Government has confirmed this. Forward this message to everyone immediately!!!')"
+                  required
+                ></textarea>
+
+                <div class="textarea-quick-actions">
+                  <!-- Voice Speech-to-Text Button -->
+                  <button type="button" id="voice-input-btn" class="quick-action-btn voice-btn" title="Speak / Dictate Message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                      <line x1="12" y1="19" x2="12" y2="23"></line>
+                      <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                    <span id="voice-btn-label">Dictate</span>
+                  </button>
+
+                  <button type="button" id="paste-btn" class="quick-action-btn" title="Paste from Clipboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    </svg>
+                    Paste
+                  </button>
+                  <button type="button" id="clear-input-btn" class="quick-action-btn" title="Clear text">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    Clear
+                  </button>
+                </div>
+              </div>
+              <div id="validation-error" class="validation-msg hidden" role="alert"></div>
+            </div>
+
+            <!-- OPTIONAL METADATA FIELDS (Expandable Grid) -->
+            <div class="metadata-accordion">
+              <button type="button" class="metadata-toggle-btn" id="metadata-toggle" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="toggle-icon">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <span>Optional Details (Source, Location, Time)</span>
+              </button>
+
+              <div class="metadata-fields-grid" id="metadata-fields">
+                <div class="form-group-sm">
+                  <label for="alert-source" class="form-label-sm">Where did you see this?</label>
+                  <input type="text" id="alert-source" placeholder="e.g. WhatsApp Family Group, Twitter/X, SMS">
+                </div>
+                <div class="form-group-sm">
+                  <label for="alert-location" class="form-label-sm">Location / City Mentioned</label>
+                  <input type="text" id="alert-location" placeholder="e.g. Chennai, Mumbai, California, Tokyo">
+                </div>
+                <div class="form-group-sm">
+                  <label for="alert-time" class="form-label-sm">Date / Time Stated</label>
+                  <input type="text" id="alert-time" placeholder="e.g. Tonight 10 PM, Tomorrow morning">
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTION BUTTONS ROW -->
+            <div class="form-actions-row">
+              <button type="submit" id="analyze-btn" class="btn btn-primary btn-xl">
+                <span class="btn-spinner hidden" id="analyze-spinner"></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span id="analyze-btn-text">Analyze Emergency Alert</span>
+              </button>
+
+              <button type="button" id="reset-all-btn" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                  <path d="M3 3v5h5"></path>
+                </svg>
+                Reset
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- RESULTS DASHBOARD (RENDERED DYNAMICALLY) -->
+        <div id="results-container" class="results-container hidden" aria-live="polite">
+          
+          <!-- RESULT HEADER BANNER -->
+          <div class="result-banner" id="result-banner">
+            <div class="banner-badge-wrapper">
+              <span class="risk-badge" id="risk-badge">HIGHLY SUSPICIOUS</span>
+              <span class="classification-pill" id="classification-pill">CRITICAL RISK</span>
+            </div>
+            
+            <div class="banner-actions-right">
+              <!-- Audio Readout Button -->
+              <button type="button" id="listen-verdict-btn" class="btn btn-outline-sm" title="Listen to Verdict">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span id="listen-btn-text">Listen</span>
+              </button>
+              
+              <div class="banner-meta">
+                <span id="result-timestamp">Analyzed just now</span>
+                <span class="meta-separator">•</span>
+                <span id="result-id">ID: #SA-000000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- USER-FRIENDLY QUICK VERDICT CALLOUT -->
+          <div class="quick-verdict-box" id="quick-verdict-box">
+            <div class="verdict-icon-big" id="verdict-icon-big">🛑</div>
+            <div class="verdict-text-group">
+              <h3 class="verdict-headline" id="verdict-headline">Do Not Forward — Likely Hoax or Panic Rumor</h3>
+              <p class="verdict-subtext" id="verdict-subtext">This message exhibits classic viral panic markers. Real emergencies are broadcast through verified news networks, not anonymous chain messages.</p>
+            </div>
+            <button type="button" id="whatsapp-debunk-btn" class="btn btn-whatsapp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+              Copy WhatsApp Debunk Reply
+            </button>
+          </div>
+
+          <!-- EXECUTIVE SUMMARY METRICS GRID -->
+          <div class="results-metrics-grid">
+            
+            <!-- Circular Gauge Card -->
+            <div class="card metric-box gauge-box">
+              <h3 class="card-title-sm">Risk Assessment Score</h3>
+              <div class="gauge-wrapper">
+                <svg class="circular-gauge" viewBox="0 0 120 120">
+                  <circle class="gauge-bg" cx="60" cy="60" r="52"></circle>
+                  <circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="52" stroke-dasharray="326.72" stroke-dashoffset="326.72"></circle>
+                </svg>
+                <div class="gauge-center-text">
+                  <span class="gauge-score" id="gauge-score-value">0</span>
+                  <span class="gauge-max">/ 100</span>
+                </div>
+              </div>
+              <div class="gauge-status-label" id="gauge-status-text">Calculating...</div>
+            </div>
+
+            <!-- Confidence Metric Card -->
+            <div class="card metric-box">
+              <h3 class="card-title-sm">AI Confidence Rating</h3>
+              <div class="confidence-display">
+                <div class="confidence-circle">
+                  <span class="confidence-number" id="confidence-value">0%</span>
+                </div>
+                <div class="confidence-details">
+                  <p class="confidence-text" id="confidence-desc">High signal convergence based on linguistic patterns.</p>
+                  <div class="mini-bar-track">
+                    <div class="mini-bar-fill" id="confidence-bar" style="width: 0%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat Triggers Summary Card -->
+            <div class="card metric-box">
+              <h3 class="card-title-sm">Suspicious Vectors Flagged</h3>
+              <div class="threat-count-display">
+                <span class="big-number" id="flagged-triggers-count">0</span>
+                <span class="count-subtext">of 6 threat vectors detected</span>
+              </div>
+              <div class="triggers-tags-list" id="triggers-tags-list">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Primary Recommended Action Card -->
+            <div class="card metric-box action-recommended-box">
+              <h3 class="card-title-sm">Recommended Action</h3>
+              <div class="action-status-icon" id="action-icon">⚠️</div>
+              <h4 class="action-heading" id="action-heading">Do Not Forward</h4>
+              <p class="action-body" id="action-body">This message exhibits high indicators of misinformation. Cross-reference with verified emergency channels before acting.</p>
+            </div>
+
+          </div>
+
+          <!-- INTERACTIVE ANNOTATED MESSAGE VIEWER -->
+          <div class="card annotated-message-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                  </svg>
+                  Interactive Message Highlighter
+                </h3>
+                <p class="card-subtitle">Detected suspicious phrases are color-coded. Hover or tap any highlighted segment to see why it was flagged.</p>
+              </div>
+              <div class="highlight-legend">
+                <span class="legend-item"><span class="legend-dot urgency"></span> Urgency</span>
+                <span class="legend-item"><span class="legend-dot fear"></span> Fear / Disaster</span>
+                <span class="legend-item"><span class="legend-dot authority"></span> Unverified Authority</span>
+                <span class="legend-item"><span class="legend-dot forwarding"></span> Virality / Chain</span>
+                <span class="legend-item"><span class="legend-dot format"></span> Formatting</span>
+              </div>
+            </div>
+            
+            <div class="highlighted-text-box" id="highlighted-text-display">
+              <!-- Rendered with dynamic span markers -->
+            </div>
+          </div>
+
+          <!-- EXPLAINABLE AI SECTION ("WHY WAS THIS ALERT FLAGGED?") -->
+          <div class="card xai-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  Why was this alert flagged? (Explainable AI Rationale)
+                </h3>
+                <p class="card-subtitle">Detailed breakdown of linguistic, structural, and social manipulation signals detected in the alert.</p>
+              </div>
+            </div>
+
+            <!-- Vector Breakdown Bars Grid -->
+            <div class="vectors-breakdown-grid" id="vectors-breakdown-grid">
+              <!-- Injected by JS with sub-scores -->
+            </div>
+
+            <!-- Detailed Rationale Items List -->
+            <div class="rationale-details-container">
+              <h4 class="subheading">Detected Risk Indicators & Diagnostic Findings:</h4>
+              <ul class="rationale-list" id="rationale-list">
+                <!-- Injected via JS -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- EMERGENCY SAFETY PROTOCOL MODE (Context-Aware Safety Guidance) -->
+          <div class="emergency-safety-banner" id="emergency-safety-banner">
+            <div class="safety-banner-header">
+              <div class="safety-icon-pulse">🚨</div>
+              <div>
+                <h3 class="safety-banner-title" id="safety-category-title">Emergency Protocol & Safety Notice</h3>
+                <p class="safety-banner-subtitle">Official Life-Safety Guidance</p>
+              </div>
+            </div>
+            <div class="safety-banner-body">
+              <p class="safety-disclaimer-strong">
+                <strong>CRITICAL SAFETY DIRECTIVE:</strong> Do not rely solely on this detector during a real physical emergency. Always obey instructions from local first responders, civil defense authorities, and emergency broadcast networks.
+              </p>
+              <div class="safety-guidelines-box" id="safety-guidelines-box">
+                <!-- Injected via JS depending on disaster type -->
+              </div>
+            </div>
+          </div>
+
+          <!-- VERIFICATION ASSISTANT SECTION -->
+          <div class="card verification-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                    <path d="M9 11l3 3L22 4"></path>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                  </svg>
+                  Actionable Verification Checklist
+                </h3>
+                <p class="card-subtitle">Follow these standard investigative steps before sharing or taking drastic action based on this alert.</p>
+              </div>
+              <button type="button" id="open-resources-modal-btn" class="btn btn-outline-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Open Official Resources Directory
+              </button>
+            </div>
+
+            <div class="verification-checklist-grid" id="verification-checklist">
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>1. Check Official Government & Disaster Portals</strong>
+                  <span>Verify whether state disaster management (NDMA, FEMA, USGS, IMD) has published a matching bulletin.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>2. Inspect the Original Source Link</strong>
+                  <span>Look for official `.gov`, `.mil`, or authenticated public broadcaster domains rather than raw text or shortened links.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>3. Cross-Check with Major Verified News Outlets</strong>
+                  <span>Large-scale emergencies (earthquakes, cyclones, lockdowns) are immediately covered across major live news channels.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>4. Check Official Police & Municipal Social Handles</strong>
+                  <span>Local police commissioners and city administrations frequently debunk viral hoax warnings in real time.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>5. Halt Forwarding Chains</strong>
+                  <span>Never forward alarming unverified emergency claims to family groups or public channels without confirmation.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>6. Look for Temporal & Spatial Specifics</strong>
+                  <span>Genuine warnings contain exact coordinates, designated relief centers, and authenticated bulletin reference IDs.</span>
+                </div>
+              </label>
+            </div>
+
+            <!-- REPORT EXPORT ACTIONS -->
+            <div class="report-actions-footer">
+              <button type="button" id="copy-summary-btn" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy Full Report
+              </button>
+              <button type="button" id="print-report-btn" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Print / Save PDF
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION (VISUAL PIPELINE FLOW) -->
+    <section class="how-it-works-section section-view" id="how-it-works">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">METHODOLOGY & PIPELINE</div>
+          <h2 class="section-title">How the AI Detection Engine Works</h2>
+          <p class="section-subtitle">A multi-layered heuristic and natural language processing pipeline designed specifically for crisis communication analysis.</p>
+        </div>
+
+        <div class="pipeline-flow-container">
+          
+          <div class="pipeline-step">
+            <div class="step-number">01</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </div>
+            <h3 class="step-title">Text Input & Tokenization</h3>
+            <p class="step-desc">Normalizes unicode strings, parses sentence boundaries, extracts URL domains, and handles casing ratios.</p>
+          </div>
+
+          <div class="pipeline-connector">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-number">02</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h3 class="step-title">Multi-Vector Pattern Scan</h3>
+            <p class="step-desc">Evaluates 6 threat vectors: Urgency spikes, Fear triggers, Unverified authority attribution, Absolutism, Chain virality, and Formatting.</p>
+          </div>
+
+          <div class="pipeline-connector">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-number">03</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 20V10"></path>
+                <path d="M12 20V4"></path>
+                <path d="M6 20v-6"></path>
+              </svg>
+            </div>
+            <h3 class="step-title">Risk Scoring Matrix</h3>
+            <p class="step-desc">Applies normalized weighted algorithms with credibility mitigation adjustments to compute a 0–100 risk score and confidence metric.</p>
+          </div>
+
+          <div class="pipeline-connector">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-number">04</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="step-title">Explainable Rationale & Advice</h3>
+            <p class="step-desc">Generates human-readable forensic explanations, visual highlighted message tokens, emergency safety guidance, and verification checklists.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STATISTICS & ANALYTICS DASHBOARD -->
+    <section class="dashboard-section section-view" id="dashboard">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">REAL-TIME ANALYTICS</div>
+          <h2 class="section-title">Telemetry & Incident Statistics</h2>
+          <p class="section-subtitle">Aggregated metrics computed dynamically from your local analysis history. No cloud logging or external telemetry required.</p>
+        </div>
+
+        <div class="stats-overview-grid">
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-total-scans">0</div>
+              <div class="stat-title">Total Alerts Analyzed</div>
+            </div>
+          </div>
+
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper red">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-critical-count">0</div>
+              <div class="stat-title">Critical Risk Alerts</div>
+            </div>
+          </div>
+
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-high-count">0</div>
+              <div class="stat-title">High / Suspicious Alerts</div>
+            </div>
+          </div>
+
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-low-count">0</div>
+              <div class="stat-title">Trustworthy / Low Risk</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHARTS GRID (Pure CSS & SVG) -->
+        <div class="dashboard-charts-grid">
+          
+          <!-- Risk Distribution Donut Chart -->
+          <div class="card chart-card">
+            <div class="card-header-flex">
+              <h3 class="card-title">Risk Level Classification Distribution</h3>
+            </div>
+            <div class="donut-chart-container">
+              <div class="svg-donut-wrapper">
+                <svg class="donut-svg" viewBox="0 0 100 100" id="distribution-donut-svg">
+                  <circle cx="50" cy="50" r="38" class="donut-base"></circle>
+                </svg>
+                <div class="donut-center-info">
+                  <span class="donut-center-number" id="donut-avg-score">0</span>
+                  <span class="donut-center-label">Avg Risk Score</span>
+                </div>
+              </div>
+
+              <div class="donut-legend" id="donut-legend">
+                <div class="legend-row"><span class="legend-box critical"></span> Critical (81–100): <strong id="legend-crit-pct">0%</strong></div>
+                <div class="legend-row"><span class="legend-box high"></span> High (61–80): <strong id="legend-high-pct">0%</strong></div>
+                <div class="legend-row"><span class="legend-box medium"></span> Medium (31–60): <strong id="legend-med-pct">0%</strong></div>
+                <div class="legend-row"><span class="legend-box low"></span> Low (0–30): <strong id="legend-low-pct">0%</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Detected Threat Patterns Bar Chart -->
+          <div class="card chart-card">
+            <div class="card-header-flex">
+              <h3 class="card-title">Most Prevalent Threat Patterns</h3>
+            </div>
+            <div class="patterns-bar-chart" id="patterns-bar-chart">
+              <!-- Dynamically populated via script.js -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LOCAL ANALYSIS HISTORY SECTION -->
+    <section class="history-section section-view" id="history">
+      <div class="container">
+        
+        <div class="section-header-flex">
+          <div>
+            <div class="section-tag">LOCAL DATA VAULT</div>
+            <h2 class="section-title">Analysis History</h2>
+            <p class="section-subtitle">Locally preserved scan logs stored securely in your browser's private localStorage.</p>
+          </div>
+          <div class="history-controls-row">
+            <button type="button" id="export-history-btn" class="btn btn-outline-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export JSON
+            </button>
+            <button type="button" id="clear-all-history-btn" class="btn btn-danger-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              Clear All Logs
+            </button>
+          </div>
+        </div>
+
+        <div class="card history-card">
+          
+          <!-- History Filters -->
+          <div class="history-filter-bar">
+            <div class="search-input-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="history-search-input" placeholder="Search saved alert text, source, or classification...">
+            </div>
+            <div class="filter-select-wrapper">
+              <select id="history-risk-filter">
+                <option value="all">All Risk Levels</option>
+                <option value="critical">Critical Risk (81-100)</option>
+                <option value="high">High Risk (61-80)</option>
+                <option value="medium">Medium Risk (31-60)</option>
+                <option value="low">Low Risk (0-30)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- History Table / Cards -->
+          <div class="history-table-wrapper">
+            <table class="history-table" id="history-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Alert Snippet</th>
+                  <th>Risk Score</th>
+                  <th>Classification</th>
+                  <th>Triggers</th>
+                  <th class="actions-col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="history-tbody">
+                <!-- Dynamically rendered via script.js -->
+              </tbody>
+            </table>
+
+            <div class="empty-history-state" id="empty-history-state">
+              <div class="empty-icon">📭</div>
+              <h4>No History Records Found</h4>
+              <p>Analyze an emergency alert or load sample presets above to record forensic scans.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROFILE SECTION -->
+    <section class="profile-section section-view" id="profile">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">PERSONAL COMMAND CENTER</div>
+          <h2 class="section-title">Your Sentinel Profile</h2>
+          <p class="section-subtitle">Manage your verification identity and review your private safety activity.</p>
+        </div>
+        <div class="profile-layout">
+          <aside class="card profile-identity">
+            <div class="profile-avatar" id="profile-avatar">AS</div>
+            <h3 class="profile-name" id="profile-display-name">Alert Sentinel</h3>
+            <p class="profile-email" id="profile-display-email">sentinel@example.com</p>
+            <p class="profile-region" id="profile-display-region">Region not set</p>
+            <span class="profile-status"><span class="status-dot online"></span> Session protected</span>
+            <div class="profile-mini-stats">
+              <div class="profile-mini-stat"><strong id="profile-scan-count">0</strong><span>Scans</span></div>
+              <div class="profile-mini-stat"><strong id="profile-history-count">0</strong><span>Saved</span></div>
+              <div class="profile-mini-stat"><strong>100%</strong><span>Private</span></div>
+            </div>
+            <div class="profile-security">
+              <h4><span class="status-dot online"></span> Local vault active</h4>
+              <p>Your profile and analysis history remain in this browser. Nothing is sent to a server.</p>
+            </div>
+          </aside>
+          <div class="card profile-details">
+            <div class="profile-card-heading">
+              <div><h3>Profile details</h3><p>Keep your workspace identity up to date.</p></div>
+              <span class="profile-edit-tag">Editable locally</span>
+            </div>
+            <form id="profile-form" novalidate>
+              <div class="profile-form-grid">
+                <div class="form-group"><label class="form-label" for="profile-username-input">Username</label><input id="profile-username-input" type="text" value="" autocomplete="username" required></div>
+                <div class="form-group"><label class="form-label" for="profile-name-input">Display name</label><input id="profile-name-input" type="text" value="Alert Sentinel" autocomplete="name" required></div>
+                <div class="form-group"><label class="form-label" for="profile-first-name-input">First name</label><input id="profile-first-name-input" type="text" value="" autocomplete="given-name" required></div>
+                <div class="form-group"><label class="form-label" for="profile-last-name-input">Last name</label><input id="profile-last-name-input" type="text" value="" autocomplete="family-name" required></div>
+                <div class="form-group"><label class="form-label" for="profile-email-input">Email address</label><input id="profile-email-input" type="email" value="sentinel@example.com" required></div>
+                <div class="form-group"><label class="form-label" for="profile-location-input">Location or region</label><input id="profile-location-input" type="text" placeholder="e.g. Chennai, India"></div>
+              </div>
+              <div class="profile-form-actions"><span class="profile-save-message" id="profile-save-message" aria-live="polite"></span><button type="submit" class="btn btn-primary">Save profile</button></div>
+            </form>
+            <div class="profile-quick-actions">
+              <a href="#detector" class="btn btn-outline-sm">Verify an alert</a>
+              <a href="#history" class="btn btn-outline-sm">View history</a>
+            </div>
+            <div class="profile-security"><h4>Account access</h4><p>Signed in for this browser session. Sign out to return to the secure access portal.</p><button type="button" class="btn btn-outline-sm" id="profile-signout-btn">Sign out</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT & METHODOLOGY SECTION -->
+    <section class="about-section section-view" id="about">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">PROJECT MISSION & GOVERNANCE</div>
+          <h2 class="section-title">About the Sentinel-Alert Platform</h2>
+          <p class="section-subtitle">Engineered to combat the dangerous viral spread of synthetic, spoofed, and panic-inducing crisis rumors.</p>
+        </div>
+
+        <div class="about-grid">
+          
+          <div class="card about-card">
+            <div class="about-icon-header">🎯 Objective & Problem Statement</div>
+            <p class="about-text">
+              During natural catastrophes and security events, unverified rumors spread 6x faster than official warnings. Panic-driven forwarding leads to stampedes, resource misallocation, and public distress. Sentinel-Alert acts as a front-line decision-support barrier to help citizens and monitors evaluate emergency claims critically before acting or amplifying.
+            </p>
+          </div>
+
+          <div class="card about-card">
+            <div class="about-icon-header">🧠 Heuristic & Linguistic Engine</div>
+            <p class="about-text">
+              Built on a forensic linguistic architecture that scrutinizes emotional temperature, cognitive manipulation, missing institutional citations, and structural anomalies. The platform operates 100% offline in client memory without sending sensitive user inputs to third parties unless explicitly configured.
+            </p>
+          </div>
+
+          <div class="card about-card">
+            <div class="about-icon-header">🛡️ Decision Support Boundary</div>
+            <p class="about-text">
+              This system does NOT replace civil defense commands or state meteorological agencies. It assigns probabilistic risk scores to textual artifacts to counter social engineering and disinformation patterns.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- IMPORTANT SAFETY DISCLAIMER CALLOUT -->
+        <div class="disclaimer-callout-card">
+          <div class="disclaimer-icon">⚠️</div>
+          <div class="disclaimer-content">
+            <h4 class="disclaimer-title">Mandatory Life-Safety & Regulatory Disclaimer</h4>
+            <p class="disclaimer-text">
+              This system does not determine whether an emergency event is actually occurring in the physical world. It analyzes message characteristics and provides an AI-based risk assessment. During real emergencies, always follow verified instructions from official authorities, local first responders, and certified disaster management services.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- APP FOOTER -->
+  <footer class="app-footer">
+    <div class="container footer-container">
+      
+      <div class="footer-brand">
+        <div class="brand-logo footer-logo">
+          <div class="brand-icon sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <span class="brand-title">SENTINEL<span class="accent-text">ALERT</span></span>
+        </div>
+        <p class="footer-tagline">AI-Based Fake Emergency Alert & Crisis Information Detector.</p>
+        <p class="footer-subtext">Designed for Academic, Research, and Public Safety Demonstration.</p>
+      </div>
+
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Navigation</h5>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#detector">Alert Detector</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#history">Analysis History</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Resources</h5>
+        <ul>
+          <li><a href="#" id="footer-resources-link">Official Verification Portals</a></li>
+          <li><a href="#" id="footer-api-link">API Configuration</a></li>
+          <li><a href="#about">Project Methodology</a></li>
+          <li><a href="#detector">Sample Test Cases</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Technical Stack</h5>
+        <div class="tech-stack-tags">
+          <span class="tech-tag">HTML5 Semantic</span>
+          <span class="tech-tag">Modern CSS3</span>
+          <span class="tech-tag">Vanilla JS (ES6+)</span>
+          <span class="tech-tag">Zero Dependencies</span>
+          <span class="tech-tag">LocalStorage</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div class="container footer-bottom-flex">
+        <span>© 2026 SENTINEL-ALERT // AI Emergency Verification System. All rights reserved.</span>
+        <span>Client-Side Local Inference • Privacy Preserved</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: QUICK USER GUIDE MODAL -->
+  <div class="modal-overlay hidden" id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="modal-guide-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-guide-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          Quick User Guide & How to Use
+        </h3>
+        <button type="button" class="modal-close-btn" id="close-guide-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="guide-steps-list">
+          <div class="guide-step-item">
+            <div class="guide-step-num">1</div>
+            <div>
+              <strong>Paste or Speak Your Alert</strong>
+              <p>Copy any forwarded emergency message or click <strong>Dictate</strong> to speak using your microphone.</p>
+            </div>
+          </div>
+          <div class="guide-step-item">
+            <div class="guide-step-num">2</div>
+            <div>
+              <strong>Click "Analyze Emergency Alert"</strong>
+              <p>The AI will scan for 6 forensic vectors: false urgency, disaster keywords, spoofed authorities, excessive certainty, chain forwarding, and formatting.</p>
+            </div>
+          </div>
+          <div class="guide-step-item">
+            <div class="guide-step-num">3</div>
+            <div>
+              <strong>Check the Color-Coded Risk Score</strong>
+              <p><span class="chip-tag green">0–30 Low Risk</span> = Likely Trustworthy • <span class="chip-tag red">81–100 Critical</span> = High Hoax Probability.</p>
+            </div>
+          </div>
+          <div class="guide-step-item">
+            <div class="guide-step-num">4</div>
+            <div>
+              <strong>Send a Debunk Reply</strong>
+              <p>Click <strong>"Copy WhatsApp Debunk Reply"</strong> to politely inform friends or family groups not to forward the hoax.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="close-guide-modal-btn2">Got It, Let's Start!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: OFFICIAL VERIFICATION RESOURCES DIRECTORY -->
+  <div class="modal-overlay hidden" id="resources-modal" role="dialog" aria-modal="true" aria-labelledby="modal-resources-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-resources-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          Official Emergency Verification Directory
+        </h3>
+        <button type="button" class="modal-close-btn" id="close-resources-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Always verify extreme emergency claims directly through authenticated national and international disaster portals:</p>
+        
+        <div class="resources-grid">
+          
+          <div class="resource-item-card">
+            <div class="resource-badge govt">Disaster Management</div>
+            <h4>NDMA & FEMA Official Portals</h4>
+            <p>National Disaster Management Authorities publishing real-time severe weather, cyclone, and seismic alerts.</p>
+            <a href="https://ndma.gov.in" target="_blank" rel="noopener noreferrer" class="resource-link">Visit NDMA Portal &rarr;</a>
+          </div>
+
+          <div class="resource-item-card">
+            <div class="resource-badge seismic">Seismology & Earthquakes</div>
+            <h4>USGS & National Seismology Center</h4>
+            <p>Real-time authenticated global earthquake monitoring. (Note: Earthquakes cannot be predicted for specific future hours).</p>
+            <a href="https://earthquake.usgs.gov" target="_blank" rel="noopener noreferrer" class="resource-link">Check USGS Live Map &rarr;</a>
+          </div>
+
+          <div class="resource-item-card">
+            <div class="resource-badge weather">Meteorology & Cyclones</div>
+            <h4>IMD & NOAA National Weather Service</h4>
+            <p>Official meteorological bulletins, rainfall Doppler radars, and storm tracking.</p>
+            <a href="https://mausam.imd.gov.in" target="_blank" rel="noopener noreferrer" class="resource-link">Check IMD Bulletins &rarr;</a>
+          </div>
+
+          <div class="resource-item-card">
+            <div class="resource-badge factcheck">Fact-Checking Networks</div>
+            <h4>PIB Fact Check & IFCN Verified Hubs</h4>
+            <p>Official governmental press bureau debunking viral social media hoaxes, lockdown rumors, and fake notices.</p>
+            <a href="https://factcheck.pib.gov.in" target="_blank" rel="noopener noreferrer" class="resource-link">Search PIB Fact Check &rarr;</a>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="close-resources-modal-btn2">Close Directory</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: OPTIONAL AI API CONFIGURATION -->
+  <div class="modal-overlay hidden" id="api-modal" role="dialog" aria-modal="true" aria-labelledby="modal-api-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-api-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          AI Engine & API Configuration
+        </h3>
+        <button type="button" class="modal-close-btn" id="close-api-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="api-notice-box">
+          <strong>Default Mode: Offline NLP Heuristic Engine</strong>
+          <p>The application is fully functional out of the box using built-in linguistic heuristics. If you wish to connect an optional external LLM API (e.g. Gemini API), you can configure your API key below.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Active Inference Engine</label>
+          <div class="engine-toggle-group">
+            <label class="radio-card">
+              <input type="radio" name="inferenceEngine" value="heuristic" checked id="engine-heuristic">
+              <div class="radio-content">
+                <strong>Built-in Offline Heuristics Engine (Recommended)</strong>
+                <span>100% Client-side, 0ms latency, maximum privacy.</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="inferenceEngine" value="api" id="engine-api">
+              <div class="radio-content">
+                <strong>External Gemini / LLM API Integration</strong>
+                <span>Calls Gemini API endpoint for deep contextual verification.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="api-key-group">
+          <label for="user-api-key" class="form-label">Optional Gemini API Key (Stored in Session Memory only):</label>
+          <input type="password" id="user-api-key" placeholder="AIzaSy... (Leave empty to use built-in engine)">
+          <span class="field-hint">Never hardcode your private key. Keys are never transmitted to any third-party server.</span>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="cancel-api-modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="save-api-settings">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script src="script.js"></script>
+</body>
+</html>

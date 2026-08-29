@@ -1,0 +1,5541 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SENTINEL-ALERT // AI Fake Emergency Alert Detector</title>
+  <meta name="description" content="User-friendly AI-powered emergency alert verification platform. Instantly check if an emergency message or viral forward is fake, exaggerated, or authentic.">
+  <style>
+/* ==========================================================================
+   SENTINEL-ALERT // AI Fake Emergency Alert Detector
+   Style System: Emergency Operations Command & Modern Cyber-Intelligence
+   Pure Vanilla CSS3 - Zero Framework Dependencies
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS CUSTOM PROPERTIES / DESIGN TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: #090d16;
+  --bg-secondary: #0f172a;
+  --bg-card: #131d31;
+  --bg-card-hover: #18243e;
+  --bg-input: #0b1120;
+  --bg-modal: #111a2e;
+  
+  --border-color: #1e293b;
+  --border-focus: #3b82f6;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #090d16;
+
+  /* Risk Accent Colors */
+  --risk-low: #10b981;
+  --risk-low-bg: rgba(16, 185, 129, 0.12);
+  --risk-low-border: rgba(16, 185, 129, 0.35);
+
+  --risk-med: #f59e0b;
+  --risk-med-bg: rgba(245, 158, 11, 0.12);
+  --risk-med-border: rgba(245, 158, 11, 0.35);
+
+  --risk-high: #f97316;
+  --risk-high-bg: rgba(249, 115, 22, 0.14);
+  --risk-high-border: rgba(249, 115, 22, 0.35);
+
+  --risk-crit: #ef4444;
+  --risk-crit-bg: rgba(239, 68, 68, 0.16);
+  --risk-crit-border: rgba(239, 68, 68, 0.4);
+
+  /* Primary Brand Accents */
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-indigo: #6366f1;
+  --accent-purple: #a855f7;
+  --accent-pink: #ec4899;
+  --accent-whatsapp: #25d366;
+
+  /* Highlight Categories */
+  --hl-urgency: #ef4444;
+  --hl-urgency-bg: rgba(239, 68, 68, 0.22);
+  --hl-fear: #d946ef;
+  --hl-fear-bg: rgba(217, 70, 239, 0.22);
+  --hl-authority: #f59e0b;
+  --hl-authority-bg: rgba(245, 158, 11, 0.22);
+  --hl-forwarding: #ec4899;
+  --hl-forwarding-bg: rgba(236, 72, 153, 0.22);
+  --hl-format: #06b6d4;
+  --hl-format-bg: rgba(6, 182, 212, 0.22);
+
+  /* Typography */
+  --font-display: 'Chakra Petch', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Shadows & Glassmorphism */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.25);
+  --shadow-glow-red: 0 0 30px rgba(239, 68, 68, 0.35);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-input: #ffffff;
+  --bg-modal: #ffffff;
+
+  --border-color: #e2e8f0;
+  --border-focus: #2563eb;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-inverse: #ffffff;
+
+  --risk-low: #059669;
+  --risk-low-bg: rgba(5, 150, 105, 0.1);
+  --risk-low-border: rgba(5, 150, 105, 0.3);
+
+  --risk-med: #d97706;
+  --risk-med-bg: rgba(217, 119, 6, 0.1);
+  --risk-med-border: rgba(217, 119, 6, 0.3);
+
+  --risk-high: #ea580c;
+  --risk-high-bg: rgba(234, 88, 12, 0.1);
+  --risk-high-border: rgba(234, 88, 12, 0.3);
+
+  --risk-crit: #dc2626;
+  --risk-crit-bg: rgba(220, 38, 38, 0.12);
+  --risk-crit-border: rgba(220, 38, 38, 0.35);
+
+  --hl-urgency: #dc2626;
+  --hl-urgency-bg: rgba(220, 38, 38, 0.15);
+  --hl-fear: #9333ea;
+  --hl-fear-bg: rgba(147, 51, 234, 0.15);
+  --hl-authority: #d97706;
+  --hl-authority-bg: rgba(217, 119, 6, 0.15);
+  --hl-forwarding: #db2777;
+  --hl-forwarding-bg: rgba(219, 39, 119, 0.15);
+  --hl-format: #0284c7;
+  --hl-format-bg: rgba(2, 132, 199, 0.15);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.15);
+  --shadow-glow-red: 0 0 25px rgba(220, 38, 38, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & BASE STYLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Typography elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover {
+  color: var(--accent-cyan);
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   3. HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(9, 13, 22, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--transition-normal);
+}
+
+[data-theme="light"] .app-header {
+  background-color: rgba(248, 250, 252, 0.88);
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.brand-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-blue);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+.brand-icon.sm {
+  width: 32px;
+  height: 32px;
+}
+
+.brand-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--accent-blue);
+  animation: pulseAnimation 2.4s infinite;
+  opacity: 0;
+}
+
+@keyframes pulseAnimation {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  70% { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+.brand-title .accent-text {
+  color: var(--accent-blue);
+}
+
+.brand-subtitle {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.nav-link {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.35rem 0.1rem;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--text-primary);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-blue);
+  border-radius: var(--radius-full);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background-color: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-focus);
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.sun-icon { display: none; }
+.moon-icon { display: block; }
+[data-theme="light"] .sun-icon { display: block; }
+[data-theme="light"] .moon-icon { display: none; }
+
+.engine-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(59, 130, 246, 0.15);
+  color: var(--accent-blue);
+}
+
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.hamburger-btn span {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background-color: var(--text-primary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+/* --------------------------------------------------------------------------
+   4. SYSTEM STATUS TICKER
+   -------------------------------------------------------------------------- */
+.system-status-ticker {
+  background-color: #05080e;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.4rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+}
+
+[data-theme="light"] .system-status-ticker {
+  background-color: #e2e8f0;
+}
+
+.ticker-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-blue);
+}
+
+.status-dot.online {
+  background-color: var(--risk-low);
+  box-shadow: 0 0 8px var(--risk-low);
+}
+
+.status-dot.alert {
+  background-color: var(--risk-med);
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO SECTION
+   -------------------------------------------------------------------------- */
+.hero-section {
+  padding: 4.5rem 0 3.5rem;
+  position: relative;
+  background: radial-gradient(circle at 50% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+}
+
+.hero-container {
+  text-align: center;
+  max-width: 900px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2.25rem;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.metric-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.metric-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-focus);
+}
+
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-bottom: 0.25rem;
+}
+
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   6. CARDS & GENERAL UI ELEMENTS
+   -------------------------------------------------------------------------- */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.75rem;
+}
+
+.section-header-flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.4rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.card-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.card-title-sm {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.card-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-top: 0.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. BUTTONS
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-focus);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-focus);
+}
+
+.btn-outline-sm {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.btn-outline-sm:hover {
+  border-color: var(--border-focus);
+  color: var(--text-primary);
+  background-color: var(--bg-card-hover);
+}
+
+.btn-whatsapp {
+  background-color: #25d366;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+  background-color: #20ba5a;
+  transform: translateY(-1px);
+}
+
+.btn-danger-sm {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--risk-crit);
+}
+
+.btn-danger-sm:hover {
+  background-color: rgba(239, 68, 68, 0.25);
+}
+
+.btn-lg {
+  padding: 0.9rem 1.8rem;
+  font-size: 1.05rem;
+}
+
+.btn-xl {
+  padding: 1.05rem 2.2rem;
+  font-size: 1.1rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   8. ALERT DETECTOR INTERFACE & QUICK ACTIONS
+   -------------------------------------------------------------------------- */
+.detector-section {
+  padding: 3rem 0 4rem;
+}
+
+/* Sample Presets Chips */
+.samples-preset-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.samples-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.samples-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.demo-notice {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.sample-chips-grid {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sample-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.95rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sample-chip:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-focus);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.sample-chip.active {
+  border-color: var(--accent-blue);
+  background-color: rgba(59, 130, 246, 0.12);
+  color: var(--text-primary);
+}
+
+.chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.chip-dot.red { background-color: var(--risk-crit); }
+.chip-dot.orange { background-color: var(--risk-high); }
+.chip-dot.yellow { background-color: var(--risk-med); }
+.chip-dot.green { background-color: var(--risk-low); }
+
+.chip-tag {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+}
+
+.chip-tag.red { background-color: var(--risk-crit-bg); color: var(--risk-crit); }
+.chip-tag.orange { background-color: var(--risk-high-bg); color: var(--risk-high); }
+.chip-tag.yellow { background-color: var(--risk-med-bg); color: var(--risk-med); }
+.chip-tag.green { background-color: var(--risk-low-bg); color: var(--risk-low); }
+
+/* Detector Form */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.required-star {
+  color: var(--risk-crit);
+}
+
+.char-count-wrapper {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.textarea-wrapper {
+  position: relative;
+}
+
+textarea {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem 3.25rem 1.25rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 140px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+}
+
+.textarea-quick-actions {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.quick-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quick-action-btn:hover {
+  background-color: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-focus);
+}
+
+.quick-action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.quick-action-btn.voice-btn.recording {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: var(--risk-crit);
+  color: var(--risk-crit);
+  animation: micPulse 1.2s infinite;
+}
+
+@keyframes micPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+.validation-msg {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--risk-crit-bg);
+  border: 1px solid var(--risk-crit-border);
+  color: var(--risk-crit);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Metadata Accordion */
+.metadata-accordion {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+}
+
+.metadata-toggle-btn {
+  width: 100%;
+  padding: 0.8rem 1.25rem;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+
+.metadata-toggle-btn:hover {
+  color: var(--text-primary);
+}
+
+.toggle-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.metadata-accordion.open .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.metadata-fields-grid {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.metadata-accordion.open .metadata-fields-grid {
+  display: grid;
+}
+
+.form-group-sm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-label-sm {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group-sm input {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.85rem;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.form-group-sm input:focus {
+  border-color: var(--border-focus);
+}
+
+.form-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   9. RESULTS DASHBOARD CONTAINER & USER-FRIENDLY CALLOUT
+   -------------------------------------------------------------------------- */
+.results-container {
+  margin-top: 3rem;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Result Banner */
+.result-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.75rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.result-banner.critical {
+  border-color: var(--risk-crit-border);
+  background: linear-gradient(90deg, var(--risk-crit-bg) 0%, var(--bg-card) 60%);
+  box-shadow: var(--shadow-glow-red);
+}
+
+.result-banner.high {
+  border-color: var(--risk-high-border);
+  background: linear-gradient(90deg, var(--risk-high-bg) 0%, var(--bg-card) 60%);
+}
+
+.result-banner.medium {
+  border-color: var(--risk-med-border);
+  background: linear-gradient(90deg, var(--risk-med-bg) 0%, var(--bg-card) 60%);
+}
+
+.result-banner.low {
+  border-color: var(--risk-low-border);
+  background: linear-gradient(90deg, var(--risk-low-bg) 0%, var(--bg-card) 60%);
+}
+
+.banner-badge-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.banner-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.risk-badge {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.critical .risk-badge { color: var(--risk-crit); }
+.high .risk-badge { color: var(--risk-high); }
+.medium .risk-badge { color: var(--risk-med); }
+.low .risk-badge { color: var(--risk-low); }
+
+.classification-pill {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.critical .classification-pill { background-color: var(--risk-crit-bg); color: var(--risk-crit); border: 1px solid var(--risk-crit-border); }
+.high .classification-pill { background-color: var(--risk-high-bg); color: var(--risk-high); border: 1px solid var(--risk-high-border); }
+.medium .classification-pill { background-color: var(--risk-med-bg); color: var(--risk-med); border: 1px solid var(--risk-med-border); }
+.low .classification-pill { background-color: var(--risk-low-bg); color: var(--risk-low); border: 1px solid var(--risk-low-border); }
+
+.banner-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* User-Friendly Quick Verdict Box */
+.quick-verdict-box {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.verdict-icon-big {
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.verdict-text-group {
+  flex: 1;
+  min-width: 280px;
+}
+
+.verdict-headline {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.verdict-subtext {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Results Metrics Grid */
+.results-metrics-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.metric-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Circular Gauge */
+.gauge-box {
+  align-items: center;
+  text-align: center;
+}
+
+.gauge-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0.5rem 0;
+}
+
+.circular-gauge {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gauge-bg {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 10;
+}
+
+.gauge-fill {
+  fill: none;
+  stroke: var(--risk-crit);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+}
+
+.gauge-center-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.gauge-score {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.gauge-max {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.gauge-status-label {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Confidence Metric */
+.confidence-display {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.confidence-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+.confidence-details p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.mini-bar-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--border-color);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.mini-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #3b82f6);
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease;
+}
+
+/* Threat Count Display */
+.threat-count-display {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.big-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-pink);
+}
+
+.count-subtext {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.triggers-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.vector-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* Recommended Action Box */
+.action-recommended-box {
+  background-color: var(--bg-card);
+}
+
+.action-status-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.action-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.action-body {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   10. INTERACTIVE ANNOTATED MESSAGE HIGHLIGHTER
+   -------------------------------------------------------------------------- */
+.annotated-message-card {
+  margin-bottom: 1.75rem;
+}
+
+.highlight-legend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.urgency { background-color: var(--hl-urgency); }
+.legend-dot.fear { background-color: var(--hl-fear); }
+.legend-dot.authority { background-color: var(--hl-authority); }
+.legend-dot.forwarding { background-color: var(--hl-forwarding); }
+.legend-dot.format { background-color: var(--hl-format); }
+
+.highlighted-text-box {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 2;
+  word-break: break-word;
+}
+
+/* Highlighted Tokens */
+.hl-token {
+  position: relative;
+  display: inline;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: help;
+  transition: all var(--transition-fast);
+}
+
+.hl-token.urgency {
+  background-color: var(--hl-urgency-bg);
+  border-bottom: 2px solid var(--hl-urgency);
+  color: var(--hl-urgency);
+}
+
+.hl-token.fear {
+  background-color: var(--hl-fear-bg);
+  border-bottom: 2px solid var(--hl-fear);
+  color: var(--hl-fear);
+}
+
+.hl-token.authority {
+  background-color: var(--hl-authority-bg);
+  border-bottom: 2px solid var(--hl-authority);
+  color: var(--hl-authority);
+}
+
+.hl-token.forwarding {
+  background-color: var(--hl-forwarding-bg);
+  border-bottom: 2px solid var(--hl-forwarding);
+  color: var(--hl-forwarding);
+}
+
+.hl-token.format {
+  background-color: var(--hl-format-bg);
+  border-bottom: 2px solid var(--hl-format);
+  color: var(--hl-format);
+}
+
+.hl-token:hover {
+  filter: brightness(1.2);
+}
+
+/* Tooltip on Highlight Token */
+.hl-token::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0b0f19;
+  color: #f8fafc;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+}
+
+.hl-token:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --------------------------------------------------------------------------
+   11. EXPLAINABLE AI (XAI) BREAKDOWN
+   -------------------------------------------------------------------------- */
+.xai-card {
+  margin-bottom: 1.75rem;
+}
+
+.vectors-breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.vector-progress-box {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vector-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.vector-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.vector-score {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.vector-bar-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--border-color);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.vector-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease;
+}
+
+.rationale-details-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+}
+
+.subheading {
+  font-size: 0.95rem;
+  margin-bottom: 0.85rem;
+  color: var(--text-primary);
+}
+
+.rationale-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.rationale-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.rationale-bullet {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   12. EMERGENCY SAFETY PROTOCOL MODE
+   -------------------------------------------------------------------------- */
+.emergency-safety-banner {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(19, 29, 49, 0.9) 100%);
+  border: 1.5px solid var(--risk-crit-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.safety-banner-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.safety-icon-pulse {
+  font-size: 2.2rem;
+  animation: alarmPulse 1.5s infinite;
+}
+
+@keyframes alarmPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.safety-banner-title {
+  font-size: 1.35rem;
+  color: var(--risk-crit);
+}
+
+.safety-banner-subtitle {
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+.safety-disclaimer-strong {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.safety-guidelines-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.safety-guide-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.safety-guide-card h5 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.safety-guide-card p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   13. VERIFICATION ASSISTANT & CHECKLIST
+   -------------------------------------------------------------------------- */
+.verification-card {
+  margin-bottom: 1.75rem;
+}
+
+.verification-checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  cursor: default;
+}
+
+.checklist-item input[type="checkbox"] {
+  margin-top: 0.25rem;
+  accent-color: var(--accent-blue);
+  width: 18px;
+  height: 18px;
+}
+
+.checklist-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.checklist-content strong {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.checklist-content span {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.report-actions-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   14. HOW IT WORKS (PIPELINE FLOW)
+   -------------------------------------------------------------------------- */
+.how-it-works-section {
+  padding: 4rem 0;
+  background-color: var(--bg-secondary);
+}
+
+.pipeline-flow-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pipeline-step {
+  flex: 1;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  position: relative;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.pipeline-step:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-focus);
+}
+
+.step-number {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  margin-bottom: 0.75rem;
+}
+
+.step-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  background-color: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-blue);
+}
+
+.step-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.step-title {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.step-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pipeline-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border-focus);
+  opacity: 0.6;
+}
+
+.pipeline-connector svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   15. DASHBOARD & STATISTICS SECTION
+   -------------------------------------------------------------------------- */
+.dashboard-section {
+  padding: 4rem 0;
+}
+
+.stats-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stat-counter-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.4rem;
+}
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon-wrapper svg {
+  width: 24px;
+  height: 24px;
+}
+
+.stat-icon-wrapper.blue { background-color: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+.stat-icon-wrapper.red { background-color: var(--risk-crit-bg); color: var(--risk-crit); }
+.stat-icon-wrapper.orange { background-color: var(--risk-high-bg); color: var(--risk-high); }
+.stat-icon-wrapper.green { background-color: var(--risk-low-bg); color: var(--risk-low); }
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stat-title {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Dashboard Charts Grid */
+.dashboard-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 1.5rem;
+}
+
+.chart-card {
+  padding: 1.75rem;
+}
+
+/* SVG Donut Chart */
+.donut-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.svg-donut-wrapper {
+  position: relative;
+  width: 170px;
+  height: 170px;
+}
+
+.donut-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.donut-base {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 16;
+}
+
+.donut-segment {
+  fill: none;
+  stroke-width: 16;
+  transition: stroke-dasharray 0.8s ease;
+}
+
+.donut-center-info {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+}
+
+.donut-center-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.donut-center-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+.legend-box {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-box.critical { background-color: var(--risk-crit); }
+.legend-box.high { background-color: var(--risk-high); }
+.legend-box.medium { background-color: var(--risk-med); }
+.legend-box.low { background-color: var(--risk-low); }
+
+/* Patterns Bar Chart */
+.patterns-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 0.5rem 0;
+}
+
+.pattern-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pattern-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+.pattern-name {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.pattern-count {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.pattern-track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.pattern-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease;
+}
+
+/* --------------------------------------------------------------------------
+   16. LOCAL ANALYSIS HISTORY VAULT
+   -------------------------------------------------------------------------- */
+.history-section {
+  padding: 4rem 0;
+  background-color: var(--bg-secondary);
+}
+
+.history-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.history-filter-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1rem 0.65rem 2.25rem;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.search-input-wrapper input:focus {
+  border-color: var(--border-focus);
+}
+
+.filter-select-wrapper select {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1.25rem;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.history-table-wrapper {
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.history-table th {
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.history-table td {
+  padding: 1rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+.history-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.history-table .history-text-col {
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.history-table .history-score-cell {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.history-row-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.history-action-btn {
+  padding: 0.3rem 0.55rem;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.history-action-btn:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-focus);
+  color: var(--text-primary);
+}
+
+.history-action-btn.delete:hover {
+  border-color: var(--risk-crit);
+  color: var(--risk-crit);
+}
+
+.empty-history-state {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.empty-history-state h4 {
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.empty-history-state p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   17. ABOUT SECTION & SAFETY DISCLAIMER
+   -------------------------------------------------------------------------- */
+.about-section {
+  padding: 4.5rem 0 5rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.about-card {
+  padding: 1.75rem;
+}
+
+.about-icon-header {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  color: var(--text-primary);
+}
+
+.about-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Disclaimer Callout */
+.disclaimer-callout-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  background-color: rgba(245, 158, 11, 0.08);
+  border: 1.5px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+}
+
+.disclaimer-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.disclaimer-title {
+  font-size: 1.1rem;
+  color: var(--risk-med);
+  margin-bottom: 0.35rem;
+}
+
+.disclaimer-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   18. FOOTER
+   -------------------------------------------------------------------------- */
+.app-footer {
+  background-color: #05080e;
+  border-top: 1px solid var(--border-color);
+  padding: 4rem 0 0;
+  margin-top: auto;
+}
+
+[data-theme="light"] .app-footer {
+  background-color: #f1f5f9;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 3rem;
+  padding-bottom: 3.5rem;
+}
+
+.footer-tagline {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin: 0.85rem 0 0.4rem;
+}
+
+.footer-subtext {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.footer-heading {
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.footer-links-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footer-links-col a {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.footer-links-col a:hover {
+  color: var(--text-primary);
+}
+
+.tech-stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.25rem 0.55rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid var(--border-subtle);
+  padding: 1.5rem 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.footer-bottom-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   19. MODALS & USER GUIDE
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  background-color: var(--bg-modal);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 1.5rem 1.75rem;
+  overflow-y: auto;
+}
+
+.modal-intro {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+/* Guide Steps Modal */
+.guide-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.guide-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.guide-step-num {
+  width: 32px;
+  height: 32px;
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.guide-step-item strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.guide-step-item p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.resource-item-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.resource-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  width: fit-content;
+}
+
+.resource-badge.govt { background-color: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+.resource-badge.seismic { background-color: rgba(239, 68, 68, 0.15); color: var(--risk-crit); }
+.resource-badge.weather { background-color: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+.resource-badge.factcheck { background-color: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+
+.resource-item-card h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+.resource-item-card p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
+}
+
+.resource-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: auto;
+}
+
+.modal-footer {
+  padding: 1rem 1.75rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* API Config Modal Elements */
+.api-notice-box {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.api-notice-box strong {
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.engine-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.radio-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.radio-card:hover {
+  border-color: var(--border-focus);
+}
+
+.radio-content strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.radio-content span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.35rem;
+}
+
+/* --------------------------------------------------------------------------
+   20. TOAST NOTIFICATIONS
+   -------------------------------------------------------------------------- */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
+.toast {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+  box-shadow: var(--shadow-lg);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  pointer-events: auto;
+  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast.success { border-color: var(--risk-low-border); }
+.toast.error { border-color: var(--risk-crit-border); }
+.toast.info { border-color: rgba(59, 130, 246, 0.4); }
+
+/* --------------------------------------------------------------------------
+   21. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero-title { font-size: 2.75rem; }
+  .hero-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .results-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .vectors-breakdown-grid { grid-template-columns: repeat(3, 1fr); }
+  .safety-guidelines-box { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .footer-container { grid-template-columns: 1fr 1fr; }
+  .pipeline-flow-container { flex-direction: column; }
+  .pipeline-connector { transform: rotate(90deg); margin: 0.5rem 0; }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+    display: none;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .nav-menu.open {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .hero-title { font-size: 2.15rem; }
+  .hero-description { font-size: 1rem; }
+  .section-title { font-size: 1.75rem; }
+
+  .metadata-fields-grid { grid-template-columns: 1fr; }
+  .results-metrics-grid { grid-template-columns: 1fr; }
+  .vectors-breakdown-grid { grid-template-columns: 1fr; }
+  .verification-checklist-grid { grid-template-columns: 1fr; }
+  .stats-overview-grid { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-charts-grid { grid-template-columns: 1fr; }
+  .resources-grid { grid-template-columns: 1fr; }
+  .footer-container { grid-template-columns: 1fr; gap: 2rem; }
+  .quick-verdict-box { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 1rem; }
+  .hero-title { font-size: 1.8rem; }
+  .stats-overview-grid { grid-template-columns: 1fr; }
+  .hero-metrics-grid { grid-template-columns: 1fr; }
+  .form-actions-row { flex-direction: column; width: 100%; }
+  .form-actions-row button { width: 100%; }
+  .banner-badge-wrapper { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}
+
+/* --------------------------------------------------------------------------
+   22. PRINT STYLES (Clean PDF / Export Support)
+   -------------------------------------------------------------------------- */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .app-header, .system-status-ticker, .hero-section, .how-it-works-section,
+  .dashboard-section, .history-section, .about-section, .app-footer,
+  .samples-preset-container, .metadata-accordion, .form-actions-row,
+  .report-actions-footer, .textarea-quick-actions, .quick-verdict-box button,
+  .banner-actions-right button {
+    display: none !important;
+  }
+
+  .results-container {
+    display: block !important;
+    margin-top: 0 !important;
+  }
+
+  .card {
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+}
+
+</style>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- TOP APP BAR / NAVIGATION -->
+  <header class="app-header" id="header">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo" aria-label="Sentinel Alert Home">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M12 8v4"/>
+            <path d="M12 16h.01"/>
+          </svg>
+          <span class="pulse-ring"></span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SENTINEL<span class="accent-text">ALERT</span></span>
+          <span class="brand-subtitle">AI EMERGENCY VERIFIER</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#detector" class="nav-link">Verify Alert</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#dashboard" class="nav-link">Statistics</a></li>
+          <li><a href="#history" class="nav-link">History</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Quick Guide Button -->
+        <button id="guide-modal-btn" class="icon-btn" title="Quick User Guide" aria-label="Quick user guide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-btn" class="icon-btn" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- API Config Button -->
+        <button id="api-modal-btn" class="btn btn-outline-sm" title="Configure AI API or View Status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span class="engine-badge" id="engine-status-badge">NLP Engine</span>
+        </button>
+
+        <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle Mobile Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- LIVE GLOBAL STATUS BANNER -->
+  <div class="system-status-ticker">
+    <div class="ticker-content">
+      <span class="ticker-item"><span class="status-dot online"></span> <strong>STATUS:</strong> AI HEURISTICS V2.5 READY</span>
+      <span class="ticker-item"><span class="status-dot"></span> <strong>PRIVACY:</strong> 100% PRIVATE â€¢ ZERO DATA HARVESTING</span>
+      <span class="ticker-item"><span class="status-dot alert"></span> <strong>TIP:</strong> PASTE ANY SUSPICIOUS FORWARD TO CHECK AUTHENTICITY</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-badge">
+          <span class="badge-icon">ðŸ›¡ï¸</span>
+          <span>SMART CITIZEN EMERGENCY VERIFICATION PORTAL</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Is That Emergency Alert Real? <br>
+          <span class="gradient-text">Verify Before You Panic or Forward.</span>
+        </h1>
+        
+        <p class="hero-description">
+          Received an alarming WhatsApp forward, SMS warning, or viral post? Sentinel-Alert analyzes linguistic red flags, unverified authority claims, and fake urgency in seconds to protect you from crisis misinformation.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#detector" class="btn btn-primary btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            Verify An Alert Now
+          </a>
+          <button type="button" id="hero-demo-btn" class="btn btn-secondary btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Try Instant Demo
+          </button>
+        </div>
+
+        <!-- Quick Features Grid -->
+        <div class="hero-metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">1-Click</div>
+            <div class="metric-label">Instant Risk Verdict</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">ðŸŽ¤ Voice</div>
+            <div class="metric-label">Speech Input & Audio Readout</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">ðŸ’¬ Debunk</div>
+            <div class="metric-label">WhatsApp Family Reply Generator</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">100% Free</div>
+            <div class="metric-label">Private & Works Offline</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALERT DETECTOR SECTION (MAIN APPLICATION INTERFACE) -->
+    <section class="detector-section" id="detector">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">EASY EMERGENCY DETECTOR</div>
+          <h2 class="section-title">Paste & Verify Alert Message</h2>
+          <p class="section-subtitle">Simply paste your message or choose one of our demonstration examples below.</p>
+        </div>
+
+        <!-- PRESET SAMPLES BAR -->
+        <div class="samples-preset-container">
+          <div class="samples-header">
+            <span class="samples-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Quick Demonstration Examples (Click to Test):
+            </span>
+            <span class="demo-notice">1-click instant test</span>
+          </div>
+          
+          <div class="sample-chips-grid">
+            <button type="button" class="sample-chip" data-sample="1">
+              <span class="chip-dot red"></span>
+              <span class="chip-text">Sample 1: Earthquake Rumor</span>
+              <span class="chip-tag red">High Risk</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="2">
+              <span class="chip-dot red"></span>
+              <span class="chip-text">Sample 2: Mobile Network Shutdown</span>
+              <span class="chip-tag orange">Suspicious</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="3">
+              <span class="chip-dot yellow"></span>
+              <span class="chip-text">Sample 3: Rainfall Advisory</span>
+              <span class="chip-tag yellow">Needs Verification</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="4">
+              <span class="chip-dot green"></span>
+              <span class="chip-text">Sample 4: Official Flood Warning</span>
+              <span class="chip-tag green">Trustworthy</span>
+            </button>
+            <button type="button" class="sample-chip" data-sample="5">
+              <span class="chip-dot red"></span>
+              <span class="chip-text">Sample 5: Viral Attack Hoax</span>
+              <span class="chip-tag red">Critical Risk</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- MAIN DETECTOR FORM CARD -->
+        <div class="detector-card card">
+          <form id="detector-form" novalidate>
+            
+            <div class="form-group">
+              <div class="form-label-row">
+                <label for="alert-text" class="form-label">
+                  <span class="required-star">*</span> Emergency Alert Text / Forwarded Message:
+                </label>
+                <div class="char-count-wrapper">
+                  <span id="char-count">0</span> / <span id="char-max">2000</span> chars
+                </div>
+              </div>
+
+              <div class="textarea-wrapper">
+                <textarea 
+                  id="alert-text" 
+                  name="alertText" 
+                  rows="6" 
+                  placeholder="Paste or type the emergency message here... (e.g., 'URGENT!!! Massive earthquake will definitely hit Chennai tonight at 10 PM. Government has confirmed this. Forward this message to everyone immediately!!!')"
+                  required
+                ></textarea>
+
+                <div class="textarea-quick-actions">
+                  <!-- Voice Speech-to-Text Button -->
+                  <button type="button" id="voice-input-btn" class="quick-action-btn voice-btn" title="Speak / Dictate Message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                      <line x1="12" y1="19" x2="12" y2="23"></line>
+                      <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                    <span id="voice-btn-label">Dictate</span>
+                  </button>
+
+                  <button type="button" id="paste-btn" class="quick-action-btn" title="Paste from Clipboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    </svg>
+                    Paste
+                  </button>
+                  <button type="button" id="clear-input-btn" class="quick-action-btn" title="Clear text">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    Clear
+                  </button>
+                </div>
+              </div>
+              <div id="validation-error" class="validation-msg hidden" role="alert"></div>
+            </div>
+
+            <!-- OPTIONAL METADATA FIELDS (Expandable Grid) -->
+            <div class="metadata-accordion">
+              <button type="button" class="metadata-toggle-btn" id="metadata-toggle" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="toggle-icon">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <span>Optional Details (Source, Location, Time)</span>
+              </button>
+
+              <div class="metadata-fields-grid" id="metadata-fields">
+                <div class="form-group-sm">
+                  <label for="alert-source" class="form-label-sm">Where did you see this?</label>
+                  <input type="text" id="alert-source" placeholder="e.g. WhatsApp Family Group, Twitter/X, SMS">
+                </div>
+                <div class="form-group-sm">
+                  <label for="alert-location" class="form-label-sm">Location / City Mentioned</label>
+                  <input type="text" id="alert-location" placeholder="e.g. Chennai, Mumbai, California, Tokyo">
+                </div>
+                <div class="form-group-sm">
+                  <label for="alert-time" class="form-label-sm">Date / Time Stated</label>
+                  <input type="text" id="alert-time" placeholder="e.g. Tonight 10 PM, Tomorrow morning">
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTION BUTTONS ROW -->
+            <div class="form-actions-row">
+              <button type="submit" id="analyze-btn" class="btn btn-primary btn-xl">
+                <span class="btn-spinner hidden" id="analyze-spinner"></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span id="analyze-btn-text">Analyze Emergency Alert</span>
+              </button>
+
+              <button type="button" id="reset-all-btn" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                  <path d="M3 3v5h5"></path>
+                </svg>
+                Reset
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- RESULTS DASHBOARD (RENDERED DYNAMICALLY) -->
+        <div id="results-container" class="results-container hidden" aria-live="polite">
+          
+          <!-- RESULT HEADER BANNER -->
+          <div class="result-banner" id="result-banner">
+            <div class="banner-badge-wrapper">
+              <span class="risk-badge" id="risk-badge">HIGHLY SUSPICIOUS</span>
+              <span class="classification-pill" id="classification-pill">CRITICAL RISK</span>
+            </div>
+            
+            <div class="banner-actions-right">
+              <!-- Audio Readout Button -->
+              <button type="button" id="listen-verdict-btn" class="btn btn-outline-sm" title="Listen to Verdict">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span id="listen-btn-text">Listen</span>
+              </button>
+              
+              <div class="banner-meta">
+                <span id="result-timestamp">Analyzed just now</span>
+                <span class="meta-separator">â€¢</span>
+                <span id="result-id">ID: #SA-000000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- USER-FRIENDLY QUICK VERDICT CALLOUT -->
+          <div class="quick-verdict-box" id="quick-verdict-box">
+            <div class="verdict-icon-big" id="verdict-icon-big">ðŸ›‘</div>
+            <div class="verdict-text-group">
+              <h3 class="verdict-headline" id="verdict-headline">Do Not Forward â€” Likely Hoax or Panic Rumor</h3>
+              <p class="verdict-subtext" id="verdict-subtext">This message exhibits classic viral panic markers. Real emergencies are broadcast through verified news networks, not anonymous chain messages.</p>
+            </div>
+            <button type="button" id="whatsapp-debunk-btn" class="btn btn-whatsapp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+              Copy WhatsApp Debunk Reply
+            </button>
+          </div>
+
+          <!-- EXECUTIVE SUMMARY METRICS GRID -->
+          <div class="results-metrics-grid">
+            
+            <!-- Circular Gauge Card -->
+            <div class="card metric-box gauge-box">
+              <h3 class="card-title-sm">Risk Assessment Score</h3>
+              <div class="gauge-wrapper">
+                <svg class="circular-gauge" viewBox="0 0 120 120">
+                  <circle class="gauge-bg" cx="60" cy="60" r="52"></circle>
+                  <circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="52" stroke-dasharray="326.72" stroke-dashoffset="326.72"></circle>
+                </svg>
+                <div class="gauge-center-text">
+                  <span class="gauge-score" id="gauge-score-value">0</span>
+                  <span class="gauge-max">/ 100</span>
+                </div>
+              </div>
+              <div class="gauge-status-label" id="gauge-status-text">Calculating...</div>
+            </div>
+
+            <!-- Confidence Metric Card -->
+            <div class="card metric-box">
+              <h3 class="card-title-sm">AI Confidence Rating</h3>
+              <div class="confidence-display">
+                <div class="confidence-circle">
+                  <span class="confidence-number" id="confidence-value">0%</span>
+                </div>
+                <div class="confidence-details">
+                  <p class="confidence-text" id="confidence-desc">High signal convergence based on linguistic patterns.</p>
+                  <div class="mini-bar-track">
+                    <div class="mini-bar-fill" id="confidence-bar" style="width: 0%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat Triggers Summary Card -->
+            <div class="card metric-box">
+              <h3 class="card-title-sm">Suspicious Vectors Flagged</h3>
+              <div class="threat-count-display">
+                <span class="big-number" id="flagged-triggers-count">0</span>
+                <span class="count-subtext">of 6 threat vectors detected</span>
+              </div>
+              <div class="triggers-tags-list" id="triggers-tags-list">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Primary Recommended Action Card -->
+            <div class="card metric-box action-recommended-box">
+              <h3 class="card-title-sm">Recommended Action</h3>
+              <div class="action-status-icon" id="action-icon">âš ï¸</div>
+              <h4 class="action-heading" id="action-heading">Do Not Forward</h4>
+              <p class="action-body" id="action-body">This message exhibits high indicators of misinformation. Cross-reference with verified emergency channels before acting.</p>
+            </div>
+
+          </div>
+
+          <!-- INTERACTIVE ANNOTATED MESSAGE VIEWER -->
+          <div class="card annotated-message-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                  </svg>
+                  Interactive Message Highlighter
+                </h3>
+                <p class="card-subtitle">Detected suspicious phrases are color-coded. Hover or tap any highlighted segment to see why it was flagged.</p>
+              </div>
+              <div class="highlight-legend">
+                <span class="legend-item"><span class="legend-dot urgency"></span> Urgency</span>
+                <span class="legend-item"><span class="legend-dot fear"></span> Fear / Disaster</span>
+                <span class="legend-item"><span class="legend-dot authority"></span> Unverified Authority</span>
+                <span class="legend-item"><span class="legend-dot forwarding"></span> Virality / Chain</span>
+                <span class="legend-item"><span class="legend-dot format"></span> Formatting</span>
+              </div>
+            </div>
+            
+            <div class="highlighted-text-box" id="highlighted-text-display">
+              <!-- Rendered with dynamic span markers -->
+            </div>
+          </div>
+
+          <!-- EXPLAINABLE AI SECTION ("WHY WAS THIS ALERT FLAGGED?") -->
+          <div class="card xai-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  Why was this alert flagged? (Explainable AI Rationale)
+                </h3>
+                <p class="card-subtitle">Detailed breakdown of linguistic, structural, and social manipulation signals detected in the alert.</p>
+              </div>
+            </div>
+
+            <!-- Vector Breakdown Bars Grid -->
+            <div class="vectors-breakdown-grid" id="vectors-breakdown-grid">
+              <!-- Injected by JS with sub-scores -->
+            </div>
+
+            <!-- Detailed Rationale Items List -->
+            <div class="rationale-details-container">
+              <h4 class="subheading">Detected Risk Indicators & Diagnostic Findings:</h4>
+              <ul class="rationale-list" id="rationale-list">
+                <!-- Injected via JS -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- EMERGENCY SAFETY PROTOCOL MODE (Context-Aware Safety Guidance) -->
+          <div class="emergency-safety-banner" id="emergency-safety-banner">
+            <div class="safety-banner-header">
+              <div class="safety-icon-pulse">ðŸš¨</div>
+              <div>
+                <h3 class="safety-banner-title" id="safety-category-title">Emergency Protocol & Safety Notice</h3>
+                <p class="safety-banner-subtitle">Official Life-Safety Guidance</p>
+              </div>
+            </div>
+            <div class="safety-banner-body">
+              <p class="safety-disclaimer-strong">
+                <strong>CRITICAL SAFETY DIRECTIVE:</strong> Do not rely solely on this detector during a real physical emergency. Always obey instructions from local first responders, civil defense authorities, and emergency broadcast networks.
+              </p>
+              <div class="safety-guidelines-box" id="safety-guidelines-box">
+                <!-- Injected via JS depending on disaster type -->
+              </div>
+            </div>
+          </div>
+
+          <!-- VERIFICATION ASSISTANT SECTION -->
+          <div class="card verification-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                    <path d="M9 11l3 3L22 4"></path>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                  </svg>
+                  Actionable Verification Checklist
+                </h3>
+                <p class="card-subtitle">Follow these standard investigative steps before sharing or taking drastic action based on this alert.</p>
+              </div>
+              <button type="button" id="open-resources-modal-btn" class="btn btn-outline-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Open Official Resources Directory
+              </button>
+            </div>
+
+            <div class="verification-checklist-grid" id="verification-checklist">
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>1. Check Official Government & Disaster Portals</strong>
+                  <span>Verify whether state disaster management (NDMA, FEMA, USGS, IMD) has published a matching bulletin.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>2. Inspect the Original Source Link</strong>
+                  <span>Look for official `.gov`, `.mil`, or authenticated public broadcaster domains rather than raw text or shortened links.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>3. Cross-Check with Major Verified News Outlets</strong>
+                  <span>Large-scale emergencies (earthquakes, cyclones, lockdowns) are immediately covered across major live news channels.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>4. Check Official Police & Municipal Social Handles</strong>
+                  <span>Local police commissioners and city administrations frequently debunk viral hoax warnings in real time.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>5. Halt Forwarding Chains</strong>
+                  <span>Never forward alarming unverified emergency claims to family groups or public channels without confirmation.</span>
+                </div>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" checked disabled>
+                <div class="checklist-content">
+                  <strong>6. Look for Temporal & Spatial Specifics</strong>
+                  <span>Genuine warnings contain exact coordinates, designated relief centers, and authenticated bulletin reference IDs.</span>
+                </div>
+              </label>
+            </div>
+
+            <!-- REPORT EXPORT ACTIONS -->
+            <div class="report-actions-footer">
+              <button type="button" id="copy-summary-btn" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy Full Report
+              </button>
+              <button type="button" id="print-report-btn" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Print / Save PDF
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION (VISUAL PIPELINE FLOW) -->
+    <section class="how-it-works-section" id="how-it-works">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">METHODOLOGY & PIPELINE</div>
+          <h2 class="section-title">How the AI Detection Engine Works</h2>
+          <p class="section-subtitle">A multi-layered heuristic and natural language processing pipeline designed specifically for crisis communication analysis.</p>
+        </div>
+
+        <div class="pipeline-flow-container">
+          
+          <div class="pipeline-step">
+            <div class="step-number">01</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </div>
+            <h3 class="step-title">Text Input & Tokenization</h3>
+            <p class="step-desc">Normalizes unicode strings, parses sentence boundaries, extracts URL domains, and handles casing ratios.</p>
+          </div>
+
+          <div class="pipeline-connector">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-number">02</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h3 class="step-title">Multi-Vector Pattern Scan</h3>
+            <p class="step-desc">Evaluates 6 threat vectors: Urgency spikes, Fear triggers, Unverified authority attribution, Absolutism, Chain virality, and Formatting.</p>
+          </div>
+
+          <div class="pipeline-connector">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-number">03</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 20V10"></path>
+                <path d="M12 20V4"></path>
+                <path d="M6 20v-6"></path>
+              </svg>
+            </div>
+            <h3 class="step-title">Risk Scoring Matrix</h3>
+            <p class="step-desc">Applies normalized weighted algorithms with credibility mitigation adjustments to compute a 0â€“100 risk score and confidence metric.</p>
+          </div>
+
+          <div class="pipeline-connector">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-number">04</div>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="step-title">Explainable Rationale & Advice</h3>
+            <p class="step-desc">Generates human-readable forensic explanations, visual highlighted message tokens, emergency safety guidance, and verification checklists.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STATISTICS & ANALYTICS DASHBOARD -->
+    <section class="dashboard-section" id="dashboard">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">REAL-TIME ANALYTICS</div>
+          <h2 class="section-title">Telemetry & Incident Statistics</h2>
+          <p class="section-subtitle">Aggregated metrics computed dynamically from your local analysis history. No cloud logging or external telemetry required.</p>
+        </div>
+
+        <div class="stats-overview-grid">
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-total-scans">0</div>
+              <div class="stat-title">Total Alerts Analyzed</div>
+            </div>
+          </div>
+
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper red">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-critical-count">0</div>
+              <div class="stat-title">Critical Risk Alerts</div>
+            </div>
+          </div>
+
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-high-count">0</div>
+              <div class="stat-title">High / Suspicious Alerts</div>
+            </div>
+          </div>
+
+          <div class="card stat-counter-card">
+            <div class="stat-icon-wrapper green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-number" id="stats-low-count">0</div>
+              <div class="stat-title">Trustworthy / Low Risk</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHARTS GRID (Pure CSS & SVG) -->
+        <div class="dashboard-charts-grid">
+          
+          <!-- Risk Distribution Donut Chart -->
+          <div class="card chart-card">
+            <div class="card-header-flex">
+              <h3 class="card-title">Risk Level Classification Distribution</h3>
+            </div>
+            <div class="donut-chart-container">
+              <div class="svg-donut-wrapper">
+                <svg class="donut-svg" viewBox="0 0 100 100" id="distribution-donut-svg">
+                  <circle cx="50" cy="50" r="38" class="donut-base"></circle>
+                </svg>
+                <div class="donut-center-info">
+                  <span class="donut-center-number" id="donut-avg-score">0</span>
+                  <span class="donut-center-label">Avg Risk Score</span>
+                </div>
+              </div>
+
+              <div class="donut-legend" id="donut-legend">
+                <div class="legend-row"><span class="legend-box critical"></span> Critical (81â€“100): <strong id="legend-crit-pct">0%</strong></div>
+                <div class="legend-row"><span class="legend-box high"></span> High (61â€“80): <strong id="legend-high-pct">0%</strong></div>
+                <div class="legend-row"><span class="legend-box medium"></span> Medium (31â€“60): <strong id="legend-med-pct">0%</strong></div>
+                <div class="legend-row"><span class="legend-box low"></span> Low (0â€“30): <strong id="legend-low-pct">0%</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Detected Threat Patterns Bar Chart -->
+          <div class="card chart-card">
+            <div class="card-header-flex">
+              <h3 class="card-title">Most Prevalent Threat Patterns</h3>
+            </div>
+            <div class="patterns-bar-chart" id="patterns-bar-chart">
+              <!-- Dynamically populated via script.js -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LOCAL ANALYSIS HISTORY SECTION -->
+    <section class="history-section" id="history">
+      <div class="container">
+        
+        <div class="section-header-flex">
+          <div>
+            <div class="section-tag">LOCAL DATA VAULT</div>
+            <h2 class="section-title">Analysis History</h2>
+            <p class="section-subtitle">Locally preserved scan logs stored securely in your browser's private localStorage.</p>
+          </div>
+          <div class="history-controls-row">
+            <button type="button" id="export-history-btn" class="btn btn-outline-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export JSON
+            </button>
+            <button type="button" id="clear-all-history-btn" class="btn btn-danger-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              Clear All Logs
+            </button>
+          </div>
+        </div>
+
+        <div class="card history-card">
+          
+          <!-- History Filters -->
+          <div class="history-filter-bar">
+            <div class="search-input-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="history-search-input" placeholder="Search saved alert text, source, or classification...">
+            </div>
+            <div class="filter-select-wrapper">
+              <select id="history-risk-filter">
+                <option value="all">All Risk Levels</option>
+                <option value="critical">Critical Risk (81-100)</option>
+                <option value="high">High Risk (61-80)</option>
+                <option value="medium">Medium Risk (31-60)</option>
+                <option value="low">Low Risk (0-30)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- History Table / Cards -->
+          <div class="history-table-wrapper">
+            <table class="history-table" id="history-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Alert Snippet</th>
+                  <th>Risk Score</th>
+                  <th>Classification</th>
+                  <th>Triggers</th>
+                  <th class="actions-col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="history-tbody">
+                <!-- Dynamically rendered via script.js -->
+              </tbody>
+            </table>
+
+            <div class="empty-history-state" id="empty-history-state">
+              <div class="empty-icon">ðŸ“­</div>
+              <h4>No History Records Found</h4>
+              <p>Analyze an emergency alert or load sample presets above to record forensic scans.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT & METHODOLOGY SECTION -->
+    <section class="about-section" id="about">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">PROJECT MISSION & GOVERNANCE</div>
+          <h2 class="section-title">About the Sentinel-Alert Platform</h2>
+          <p class="section-subtitle">Engineered to combat the dangerous viral spread of synthetic, spoofed, and panic-inducing crisis rumors.</p>
+        </div>
+
+        <div class="about-grid">
+          
+          <div class="card about-card">
+            <div class="about-icon-header">ðŸŽ¯ Objective & Problem Statement</div>
+            <p class="about-text">
+              During natural catastrophes and security events, unverified rumors spread 6x faster than official warnings. Panic-driven forwarding leads to stampedes, resource misallocation, and public distress. Sentinel-Alert acts as a front-line decision-support barrier to help citizens and monitors evaluate emergency claims critically before acting or amplifying.
+            </p>
+          </div>
+
+          <div class="card about-card">
+            <div class="about-icon-header">ðŸ§  Heuristic & Linguistic Engine</div>
+            <p class="about-text">
+              Built on a forensic linguistic architecture that scrutinizes emotional temperature, cognitive manipulation, missing institutional citations, and structural anomalies. The platform operates 100% offline in client memory without sending sensitive user inputs to third parties unless explicitly configured.
+            </p>
+          </div>
+
+          <div class="card about-card">
+            <div class="about-icon-header">ðŸ›¡ï¸ Decision Support Boundary</div>
+            <p class="about-text">
+              This system does NOT replace civil defense commands or state meteorological agencies. It assigns probabilistic risk scores to textual artifacts to counter social engineering and disinformation patterns.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- IMPORTANT SAFETY DISCLAIMER CALLOUT -->
+        <div class="disclaimer-callout-card">
+          <div class="disclaimer-icon">âš ï¸</div>
+          <div class="disclaimer-content">
+            <h4 class="disclaimer-title">Mandatory Life-Safety & Regulatory Disclaimer</h4>
+            <p class="disclaimer-text">
+              This system does not determine whether an emergency event is actually occurring in the physical world. It analyzes message characteristics and provides an AI-based risk assessment. During real emergencies, always follow verified instructions from official authorities, local first responders, and certified disaster management services.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- APP FOOTER -->
+  <footer class="app-footer">
+    <div class="container footer-container">
+      
+      <div class="footer-brand">
+        <div class="brand-logo footer-logo">
+          <div class="brand-icon sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <span class="brand-title">SENTINEL<span class="accent-text">ALERT</span></span>
+        </div>
+        <p class="footer-tagline">AI-Based Fake Emergency Alert & Crisis Information Detector.</p>
+        <p class="footer-subtext">Designed for Academic, Research, and Public Safety Demonstration.</p>
+      </div>
+
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Navigation</h5>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#detector">Alert Detector</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#history">Analysis History</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Resources</h5>
+        <ul>
+          <li><a href="#" id="footer-resources-link">Official Verification Portals</a></li>
+          <li><a href="#" id="footer-api-link">API Configuration</a></li>
+          <li><a href="#about">Project Methodology</a></li>
+          <li><a href="#detector">Sample Test Cases</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h5 class="footer-heading">Technical Stack</h5>
+        <div class="tech-stack-tags">
+          <span class="tech-tag">HTML5 Semantic</span>
+          <span class="tech-tag">Modern CSS3</span>
+          <span class="tech-tag">Vanilla JS (ES6+)</span>
+          <span class="tech-tag">Zero Dependencies</span>
+          <span class="tech-tag">LocalStorage</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div class="container footer-bottom-flex">
+        <span>Â© 2026 SENTINEL-ALERT // AI Emergency Verification System. All rights reserved.</span>
+        <span>Client-Side Local Inference â€¢ Privacy Preserved</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: QUICK USER GUIDE MODAL -->
+  <div class="modal-overlay hidden" id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="modal-guide-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-guide-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          Quick User Guide & How to Use
+        </h3>
+        <button type="button" class="modal-close-btn" id="close-guide-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="guide-steps-list">
+          <div class="guide-step-item">
+            <div class="guide-step-num">1</div>
+            <div>
+              <strong>Paste or Speak Your Alert</strong>
+              <p>Copy any forwarded emergency message or click <strong>Dictate</strong> to speak using your microphone.</p>
+            </div>
+          </div>
+          <div class="guide-step-item">
+            <div class="guide-step-num">2</div>
+            <div>
+              <strong>Click "Analyze Emergency Alert"</strong>
+              <p>The AI will scan for 6 forensic vectors: false urgency, disaster keywords, spoofed authorities, excessive certainty, chain forwarding, and formatting.</p>
+            </div>
+          </div>
+          <div class="guide-step-item">
+            <div class="guide-step-num">3</div>
+            <div>
+              <strong>Check the Color-Coded Risk Score</strong>
+              <p><span class="chip-tag green">0â€“30 Low Risk</span> = Likely Trustworthy â€¢ <span class="chip-tag red">81â€“100 Critical</span> = High Hoax Probability.</p>
+            </div>
+          </div>
+          <div class="guide-step-item">
+            <div class="guide-step-num">4</div>
+            <div>
+              <strong>Send a Debunk Reply</strong>
+              <p>Click <strong>"Copy WhatsApp Debunk Reply"</strong> to politely inform friends or family groups not to forward the hoax.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="close-guide-modal-btn2">Got It, Let's Start!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: OFFICIAL VERIFICATION RESOURCES DIRECTORY -->
+  <div class="modal-overlay hidden" id="resources-modal" role="dialog" aria-modal="true" aria-labelledby="modal-resources-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-resources-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          Official Emergency Verification Directory
+        </h3>
+        <button type="button" class="modal-close-btn" id="close-resources-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Always verify extreme emergency claims directly through authenticated national and international disaster portals:</p>
+        
+        <div class="resources-grid">
+          
+          <div class="resource-item-card">
+            <div class="resource-badge govt">Disaster Management</div>
+            <h4>NDMA & FEMA Official Portals</h4>
+            <p>National Disaster Management Authorities publishing real-time severe weather, cyclone, and seismic alerts.</p>
+            <a href="https://ndma.gov.in" target="_blank" rel="noopener noreferrer" class="resource-link">Visit NDMA Portal &rarr;</a>
+          </div>
+
+          <div class="resource-item-card">
+            <div class="resource-badge seismic">Seismology & Earthquakes</div>
+            <h4>USGS & National Seismology Center</h4>
+            <p>Real-time authenticated global earthquake monitoring. (Note: Earthquakes cannot be predicted for specific future hours).</p>
+            <a href="https://earthquake.usgs.gov" target="_blank" rel="noopener noreferrer" class="resource-link">Check USGS Live Map &rarr;</a>
+          </div>
+
+          <div class="resource-item-card">
+            <div class="resource-badge weather">Meteorology & Cyclones</div>
+            <h4>IMD & NOAA National Weather Service</h4>
+            <p>Official meteorological bulletins, rainfall Doppler radars, and storm tracking.</p>
+            <a href="https://mausam.imd.gov.in" target="_blank" rel="noopener noreferrer" class="resource-link">Check IMD Bulletins &rarr;</a>
+          </div>
+
+          <div class="resource-item-card">
+            <div class="resource-badge factcheck">Fact-Checking Networks</div>
+            <h4>PIB Fact Check & IFCN Verified Hubs</h4>
+            <p>Official governmental press bureau debunking viral social media hoaxes, lockdown rumors, and fake notices.</p>
+            <a href="https://factcheck.pib.gov.in" target="_blank" rel="noopener noreferrer" class="resource-link">Search PIB Fact Check &rarr;</a>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="close-resources-modal-btn2">Close Directory</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: OPTIONAL AI API CONFIGURATION -->
+  <div class="modal-overlay hidden" id="api-modal" role="dialog" aria-modal="true" aria-labelledby="modal-api-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-api-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          AI Engine & API Configuration
+        </h3>
+        <button type="button" class="modal-close-btn" id="close-api-modal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="api-notice-box">
+          <strong>Default Mode: Offline NLP Heuristic Engine</strong>
+          <p>The application is fully functional out of the box using built-in linguistic heuristics. If you wish to connect an optional external LLM API (e.g. Gemini API), you can configure your API key below.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Active Inference Engine</label>
+          <div class="engine-toggle-group">
+            <label class="radio-card">
+              <input type="radio" name="inferenceEngine" value="heuristic" checked id="engine-heuristic">
+              <div class="radio-content">
+                <strong>Built-in Offline Heuristics Engine (Recommended)</strong>
+                <span>100% Client-side, 0ms latency, maximum privacy.</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="inferenceEngine" value="api" id="engine-api">
+              <div class="radio-content">
+                <strong>External Gemini / LLM API Integration</strong>
+                <span>Calls Gemini API endpoint for deep contextual verification.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="api-key-group">
+          <label for="user-api-key" class="form-label">Optional Gemini API Key (Stored in Session Memory only):</label>
+          <input type="password" id="user-api-key" placeholder="AIzaSy... (Leave empty to use built-in engine)">
+          <span class="field-hint">Never hardcode your private key. Keys are never transmitted to any third-party server.</span>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="cancel-api-modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="save-api-settings">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+/**
+ * ============================================================================
+ * SENTINEL-ALERT // AI Fake Emergency Alert Detector
+ * Pure Vanilla JavaScript (ES6+) - Zero External Dependencies
+ * ============================================================================
+ */
+
+'use strict';
+
+/* ============================================================================
+   1. GLOBAL STATE & CONFIGURATION
+   ============================================================================ */
+const STATE = {
+  theme: localStorage.getItem('sentinel_theme') || 'dark',
+  inferenceMode: localStorage.getItem('sentinel_engine') || 'heuristic',
+  apiKey: sessionStorage.getItem('sentinel_api_key') || '',
+  activeSampleIndex: null,
+  currentAnalysis: null,
+  history: [],
+  isRecording: false,
+  recognitionInstance: null,
+  isSpeaking: false
+};
+
+// Built-in Demonstration Test Samples
+const SAMPLE_ALERTS = [
+  {
+    id: 1,
+    title: "Earthquake Rumor",
+    text: "URGENT!!! Massive earthquake will definitely hit Chennai tonight at 10 PM. Government has confirmed this. Forward this message to everyone immediately!!!",
+    source: "WhatsApp Forward",
+    location: "Chennai, India",
+    time: "Tonight 10:00 PM"
+  },
+  {
+    id: 2,
+    title: "Mobile Network Shutdown",
+    text: "Breaking news! Police have confirmed that all mobile networks and internet services will be shut down tomorrow across the state. Share this message with your friends before it's too late.",
+    source: "Viral Social Post",
+    location: "Statewide",
+    time: "Tomorrow Morning"
+  },
+  {
+    id: 3,
+    title: "Rainfall Advisory",
+    text: "Authorities are advising residents in flood-prone areas to remain alert due to heavy rainfall forecasted over the weekend. Keep emergency kits ready.",
+    source: "Community SMS",
+    location: "Coastal District",
+    time: "This Weekend"
+  },
+  {
+    id: 4,
+    title: "Official Flood Warning",
+    text: "District disaster authorities have issued an official flood warning for low-lying sectors along the river basin. Residents are advised to follow evacuation instructions from local authorities. Official Bulletin #DRM-2026-88. Verify at https://ndma.gov.in",
+    source: "State Disaster Management Portal",
+    location: "River Basin District",
+    time: "Issued 08:30 AM"
+  },
+  {
+    id: 5,
+    title: "Viral Terror Hoax",
+    text: "100% CONFIRMED!!! A dangerous explosion attack is going to happen tomorrow in shopping malls. Do not ignore this alert! Send it to 20 people right now or you will be responsible!",
+    source: "Unknown Chain SMS",
+    location: "Metro Cities",
+    time: "Tomorrow"
+  }
+];
+
+/* ============================================================================
+   2. DETECTION DICTIONARIES & LINGUISTIC PATTERNS
+   ============================================================================ */
+const DICTIONARIES = {
+  // Vector 1: Urgency & Panic Drivers
+  urgency: [
+    { phrase: 'urgent', weight: 15, tip: 'High artificial urgency trigger' },
+    { phrase: 'breaking news', weight: 12, tip: 'Sensationalist broadcast claim' },
+    { phrase: 'breaking', weight: 10, tip: 'Sensationalist broadcast claim' },
+    { phrase: 'immediately', weight: 14, tip: 'Pressure to act without verification' },
+    { phrase: 'share now', weight: 16, tip: 'Viral distribution pressure' },
+    { phrase: 'share this immediately', weight: 18, tip: 'Viral distribution pressure' },
+    { phrase: 'forward to everyone', weight: 20, tip: 'Social contagion manipulation' },
+    { phrase: 'do not ignore', weight: 16, tip: 'Psychological compliance coercion' },
+    { phrase: 'dont ignore', weight: 16, tip: 'Psychological compliance coercion' },
+    { phrase: 'act now', weight: 12, tip: 'High urgency call to action' },
+    { phrase: 'right now', weight: 12, tip: 'Immediate action driver' },
+    { phrase: 'before it is too late', weight: 16, tip: 'Artificial time-scarcity panic' },
+    { phrase: 'before its too late', weight: 16, tip: 'Artificial time-scarcity panic' },
+    { phrase: 'asap', weight: 10, tip: 'Urgency acronym' },
+    { phrase: 'critical alert', weight: 10, tip: 'Alarmist label' },
+    { phrase: 'red alert', weight: 12, tip: 'High panic indicator' },
+    { phrase: 'warning!!!', weight: 15, tip: 'Sensationalist punctuation' }
+  ],
+
+  // Vector 2: Fear-Inducing & Disaster Terms
+  fear: [
+    { phrase: 'massive earthquake', weight: 18, tip: 'Catastrophic disaster claim (Note: Earthquakes cannot be predicted by hour)' },
+    { phrase: 'earthquake', weight: 10, tip: 'Seismic disaster reference' },
+    { phrase: 'explosion', weight: 16, tip: 'High-fatality threat term' },
+    { phrase: 'blast', weight: 14, tip: 'Violent hazard term' },
+    { phrase: 'bomb', weight: 18, tip: 'Severe national security threat' },
+    { phrase: 'attack', weight: 14, tip: 'Violent threat keyword' },
+    { phrase: 'terror attack', weight: 20, tip: 'High-panic national security claim' },
+    { phrase: 'death', weight: 12, tip: 'Casualty-focused language' },
+    { phrase: 'deadly', weight: 12, tip: 'High-severity fear keyword' },
+    { phrase: 'casualties', weight: 12, tip: 'Casualty claim' },
+    { phrase: 'disaster', weight: 10, tip: 'Disaster terminology' },
+    { phrase: 'catastrophe', weight: 14, tip: 'High-temperature emotional noun' },
+    { phrase: 'panic', weight: 10, tip: 'Psychological distress keyword' },
+    { phrase: 'chemical leak', weight: 16, tip: 'Hazardous material emergency claim' },
+    { phrase: 'toxic gas', weight: 16, tip: 'Chemical hazard trigger' },
+    { phrase: 'tsunami', weight: 14, tip: 'Coastal inundation emergency' },
+    { phrase: 'cyclone', weight: 10, tip: 'Severe storm keyword' },
+    { phrase: 'flood', weight: 8, tip: 'Hydrological hazard keyword' },
+    { phrase: 'destroy', weight: 12, tip: 'Extreme damage claim' }
+  ],
+
+  // Vector 3: Vague or Unverified Authority Claims
+  unverifiedAuthority: [
+    { phrase: 'government has confirmed', weight: 20, tip: 'Unsubstantiated governmental attribution' },
+    { phrase: 'government confirmed', weight: 20, tip: 'Unsubstantiated governmental attribution' },
+    { phrase: 'police have confirmed', weight: 18, tip: 'Unverified law enforcement attribution' },
+    { phrase: 'police confirmed', weight: 18, tip: 'Unverified law enforcement attribution' },
+    { phrase: 'official sources say', weight: 16, tip: 'Anonymous authority citation' },
+    { phrase: 'scientists confirmed', weight: 16, tip: 'Vague scientific attribution' },
+    { phrase: 'nasa confirmed', weight: 18, tip: 'Spoofed scientific agency claim' },
+    { phrase: 'who confirmed', weight: 18, tip: 'Spoofed health agency claim' },
+    { phrase: 'secret sources', weight: 22, tip: 'Conspiracy / unverifiable sourcing' },
+    { phrase: 'confidential notice', weight: 16, tip: 'Manufactured leaked credibility' },
+    { phrase: 'ministry warned', weight: 16, tip: 'Generic ministerial appeal' },
+    { phrase: 'high command', weight: 16, tip: 'Vague institutional appeal' }
+  ],
+
+  // Vector 4: Excessive Certainty / Absolutism
+  excessiveCertainty: [
+    { phrase: '100% confirmed', weight: 22, tip: 'Non-probabilistic extreme certainty' },
+    { phrase: '100% real', weight: 20, tip: 'Artificial authenticity emphasis' },
+    { phrase: 'definitely hit', weight: 18, tip: 'Unscientific exact future disaster prediction' },
+    { phrase: 'definitely', weight: 14, tip: 'Absolute claim without scientific margin' },
+    { phrase: 'guaranteed', weight: 16, tip: 'Absolutist assertion' },
+    { phrase: 'will happen', weight: 12, tip: 'Deterministic future crisis prediction' },
+    { phrase: 'everyone must', weight: 12, tip: 'Sweeping command imperative' },
+    { phrase: 'certainly', weight: 12, tip: 'Absolutist claim' },
+    { phrase: 'without a doubt', weight: 16, tip: 'Extreme certainty assertion' }
+  ],
+
+  // Vector 5: Viral Forwarding & Contagion Pressure
+  forwardingPatterns: [
+    { phrase: 'forward this message', weight: 20, tip: 'Explicit viral forwarding command' },
+    { phrase: 'forward this to everyone', weight: 22, tip: 'Broadcast chain forwarding command' },
+    { phrase: 'forward this', weight: 16, tip: 'Chain message forwarding request' },
+    { phrase: 'share this message', weight: 18, tip: 'Social amplification demand' },
+    { phrase: 'share this with your friends', weight: 16, tip: 'Peer-to-peer contagion appeal' },
+    { phrase: 'share this', weight: 14, tip: 'Amplification request' },
+    { phrase: 'send to everyone', weight: 20, tip: 'Mass spamming trigger' },
+    { phrase: 'send to 20 people', weight: 25, tip: 'Classic pyramid chain hoax formula' },
+    { phrase: 'send it to', weight: 14, tip: 'Chain propagation demand' },
+    { phrase: 'send this to all', weight: 20, tip: 'Mass forwarding demand' },
+    { phrase: 'dont delete this', weight: 18, tip: 'Retention coercion' },
+    { phrase: 'do not delete', weight: 18, tip: 'Retention coercion' },
+    { phrase: 'pass this on', weight: 14, tip: 'Chain message phrase' }
+  ],
+
+  // Credible Official Domains (Reduces risk when present)
+  credibleDomains: [
+    'gov.in', 'ndma.gov.in', 'imd.gov.in', 'pib.gov.in', 'fema.gov', 'usgs.gov',
+    'noaa.gov', 'weather.gov', 'who.int', 'un.org', 'redcross.org', 'gov.uk'
+  ],
+
+  // Suspicious URL Shorteners / TLDs
+  suspiciousLinkPatterns: [
+    'bit.ly', 'tinyurl.com', 't.co', 'goo.gl', 'is.gd', 'cutt.ly', 'ow.ly',
+    '.xyz', '.top', '.tk', '.cc', '.buzz'
+  ]
+};
+
+/* ============================================================================
+   3. CORE NLP & HEURISTIC DETECTION ENGINE
+   ============================================================================ */
+
+/**
+ * Main detection controller - analyzes an emergency message and generates
+ * risk score, classification, rationale, highlights, and safety recommendations.
+ */
+function analyzeAlert(text, metadata = {}) {
+  const cleanText = text.trim();
+  const lowerText = cleanText.toLowerCase();
+
+  // Initialize Detection Breakdown Accumulators
+  const findings = {
+    urgency: { score: 0, matches: [] },
+    fear: { score: 0, matches: [] },
+    authority: { score: 0, matches: [] },
+    certainty: { score: 0, matches: [] },
+    forwarding: { score: 0, matches: [] },
+    formatting: { score: 0, matches: [], details: [] }
+  };
+
+  const highlights = []; // For rendering highlighted tokens
+  const rationaleList = []; // For explainable AI section
+
+  // 1. Scan Urgency Indicators
+  DICTIONARIES.urgency.forEach(item => {
+    const regex = new RegExp(`\\b${escapeRegExp(item.phrase)}`, 'gi');
+    let match;
+    while ((match = regex.exec(cleanText)) !== null) {
+      findings.urgency.score += item.weight;
+      findings.urgency.matches.push(match[0]);
+      highlights.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        category: 'urgency',
+        text: match[0],
+        tip: item.tip
+      });
+    }
+  });
+
+  // 2. Scan Fear & Disaster Triggers
+  DICTIONARIES.fear.forEach(item => {
+    const regex = new RegExp(`\\b${escapeRegExp(item.phrase)}`, 'gi');
+    let match;
+    while ((match = regex.exec(cleanText)) !== null) {
+      findings.fear.score += item.weight;
+      findings.fear.matches.push(match[0]);
+      highlights.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        category: 'fear',
+        text: match[0],
+        tip: item.tip
+      });
+    }
+  });
+
+  // 3. Scan Unverified Authority Claims
+  DICTIONARIES.unverifiedAuthority.forEach(item => {
+    const regex = new RegExp(escapeRegExp(item.phrase), 'gi');
+    let match;
+    while ((match = regex.exec(cleanText)) !== null) {
+      findings.authority.score += item.weight;
+      findings.authority.matches.push(match[0]);
+      highlights.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        category: 'authority',
+        text: match[0],
+        tip: item.tip
+      });
+    }
+  });
+
+  // 4. Scan Excessive Certainty / Absolutism
+  DICTIONARIES.excessiveCertainty.forEach(item => {
+    const regex = new RegExp(escapeRegExp(item.phrase), 'gi');
+    let match;
+    while ((match = regex.exec(cleanText)) !== null) {
+      findings.certainty.score += item.weight;
+      findings.certainty.matches.push(match[0]);
+      highlights.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        category: 'authority',
+        text: match[0],
+        tip: item.tip
+      });
+    }
+  });
+
+  // 5. Scan Viral Forwarding / Manipulation
+  DICTIONARIES.forwardingPatterns.forEach(item => {
+    const regex = new RegExp(escapeRegExp(item.phrase), 'gi');
+    let match;
+    while ((match = regex.exec(cleanText)) !== null) {
+      findings.forwarding.score += item.weight;
+      findings.forwarding.matches.push(match[0]);
+      highlights.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        category: 'forwarding',
+        text: match[0],
+        tip: item.tip
+      });
+    }
+  });
+
+  // 6. Formatting & Anomaly Detection
+  // 6a. Caps Ratio
+  const lettersOnly = cleanText.replace(/[^a-zA-Z]/g, '');
+  const upperLetters = cleanText.replace(/[^A-Z]/g, '');
+  let capsRatio = 0;
+  if (lettersOnly.length > 8) {
+    capsRatio = upperLetters.length / lettersOnly.length;
+    if (capsRatio > 0.35) {
+      const capsWeight = Math.min(25, Math.round(capsRatio * 30));
+      findings.formatting.score += capsWeight;
+      findings.formatting.details.push(`Excessive capitalization (${Math.round(capsRatio * 100)}% UPPERCASE letters). Used to simulate shouting or panic.`);
+    }
+  }
+
+  // 6b. Exclamation / Punctuation Spam (e.g. !!!, ???, !?!?)
+  const exclMatches = cleanText.match(/!{2,}|\?{2,}|(!\?|\?!)+/g);
+  if (exclMatches) {
+    const puncScore = Math.min(20, exclMatches.length * 8);
+    findings.formatting.score += puncScore;
+    findings.formatting.details.push(`Repeated exclamation/question punctuation (${exclMatches.length} clusters flagged).`);
+    
+    // Highlight punctuation clusters
+    const puncRegex = /!{2,}|\?{2,}|(!\?|\?!)+/g;
+    let pMatch;
+    while ((pMatch = puncRegex.exec(cleanText)) !== null) {
+      highlights.push({
+        start: pMatch.index,
+        end: pMatch.index + pMatch[0].length,
+        category: 'format',
+        text: pMatch[0],
+        tip: 'Excessive punctuation cluster'
+      });
+    }
+  }
+
+  // 6c. Suspicious Shortened URLs or Raw IP Addresses
+  DICTIONARIES.suspiciousLinkPatterns.forEach(pattern => {
+    if (lowerText.includes(pattern)) {
+      findings.formatting.score += 20;
+      findings.formatting.details.push(`Contains suspicious or shortened link domain (${pattern}). Common in phishing and crisis clickbait.`);
+    }
+  });
+
+  // 6d. Scientific Impossibility Flag: Exact future earthquake hour prediction
+  const isEarthquakePrediction = /earthquake/i.test(cleanText) && (/(tonight|tomorrow|\d{1,2}\s*(am|pm)|\d{1,2}:\d{2})/i.test(cleanText));
+  if (isEarthquakePrediction) {
+    findings.certainty.score += 25;
+    rationaleList.push({
+      icon: 'ðŸš¨',
+      vector: 'Scientific Anomaly',
+      text: 'Scientific Impossibility: Earthquakes cannot be predicted for specific future hours or dates by seismologists. Any claim stating an earthquake "will hit at 10 PM" is a proven falsehood.'
+    });
+  }
+
+  // 7. Credibility Mitigation & Authentic Markers
+  let credibilityMitigation = 0;
+  let hasOfficialUrl = false;
+  let hasBulletinCode = false;
+
+  DICTIONARIES.credibleDomains.forEach(domain => {
+    if (lowerText.includes(domain)) {
+      credibilityMitigation += 25;
+      hasOfficialUrl = true;
+    }
+  });
+
+  if (/bulletin\s*#|reference:\s*[a-z0-9-]+|advisory\s*id/i.test(cleanText)) {
+    credibilityMitigation += 15;
+    hasBulletinCode = true;
+  }
+
+  // Source metadata bonus/penalty
+  if (metadata.source) {
+    const srcLower = metadata.source.toLowerCase();
+    if (srcLower.includes('official') || srcLower.includes('government') || srcLower.includes('ndma') || srcLower.includes('portal')) {
+      credibilityMitigation += 10;
+    } else if (srcLower.includes('whatsapp') || srcLower.includes('forward') || srcLower.includes('viral') || srcLower.includes('unknown')) {
+      findings.forwarding.score += 10;
+    }
+  }
+
+  // 8. Normalization & Weighted Risk Calculation
+  const urgencyNorm = Math.min(100, findings.urgency.score * 2.2);
+  const fearNorm = Math.min(100, findings.fear.score * 2.0);
+  const authorityNorm = Math.min(100, findings.authority.score * 2.5 + findings.certainty.score * 1.5);
+  const forwardingNorm = Math.min(100, findings.forwarding.score * 2.5);
+  const formatNorm = Math.min(100, findings.formatting.score * 2.2);
+
+  // Composite Weighted Sum
+  let rawScore = (
+    (urgencyNorm * 0.22) +
+    (fearNorm * 0.18) +
+    (authorityNorm * 0.24) +
+    (forwardingNorm * 0.22) +
+    (formatNorm * 0.14)
+  );
+
+  // Apply credibility offsets
+  rawScore = Math.max(0, rawScore - credibilityMitigation);
+  const finalScore = Math.min(100, Math.round(rawScore));
+
+  // Determine Risk Category & Classification Tier
+  let riskLevel = 'LOW';
+  let classification = 'Likely Trustworthy';
+  let bannerClass = 'low';
+
+  if (finalScore >= 81) {
+    riskLevel = 'CRITICAL';
+    classification = 'Highly Suspicious';
+    bannerClass = 'critical';
+  } else if (finalScore >= 61) {
+    riskLevel = 'HIGH';
+    classification = 'Likely Misleading';
+    bannerClass = 'high';
+  } else if (finalScore >= 31) {
+    riskLevel = 'MEDIUM';
+    classification = 'Needs Verification';
+    bannerClass = 'medium';
+  } else {
+    riskLevel = 'LOW';
+    classification = 'Likely Trustworthy';
+    bannerClass = 'low';
+  }
+
+  // 9. Compute Confidence Rating
+  let firedVectorsCount = 0;
+  if (findings.urgency.matches.length > 0) firedVectorsCount++;
+  if (findings.fear.matches.length > 0) firedVectorsCount++;
+  if (findings.authority.matches.length > 0) firedVectorsCount++;
+  if (findings.certainty.matches.length > 0) firedVectorsCount++;
+  if (findings.forwarding.matches.length > 0) firedVectorsCount++;
+  if (findings.formatting.score > 0) firedVectorsCount++;
+
+  const wordCount = cleanText.split(/\s+/).filter(Boolean).length;
+  let confidence = 65;
+
+  if (wordCount >= 10) confidence += 10;
+  if (wordCount >= 20) confidence += 10;
+  if (firedVectorsCount >= 3) confidence += 10;
+  if (firedVectorsCount >= 4) confidence += 5;
+  if (hasOfficialUrl) confidence += 4;
+  confidence = Math.min(98, Math.max(50, confidence));
+
+  // 10. Synthesize Explainable Diagnostics & Rationale Log
+  if (findings.urgency.matches.length > 0) {
+    rationaleList.push({
+      icon: 'âš ï¸',
+      vector: 'Urgency & Pressure',
+      text: `Urgency amplification detected: Contains high-pressure phrases like "${uniqueArray(findings.urgency.matches).slice(0, 3).join('", "')}".`
+    });
+  }
+
+  if (findings.authority.matches.length > 0 || findings.certainty.matches.length > 0) {
+    const authTerms = uniqueArray([...findings.authority.matches, ...findings.certainty.matches]);
+    rationaleList.push({
+      icon: 'âš ï¸',
+      vector: 'Unverified Authority & Certainty',
+      text: `Vague institutional claims without authentic citation: Found phrases like "${authTerms.slice(0, 3).join('", "')}".`
+    });
+  }
+
+  if (findings.fear.matches.length > 0) {
+    rationaleList.push({
+      icon: 'âš ï¸',
+      vector: 'Emotional Fear Induction',
+      text: `Contains high-fatality or alarming disaster references: "${uniqueArray(findings.fear.matches).slice(0, 3).join('", "')}".`
+    });
+  }
+
+  if (findings.forwarding.matches.length > 0) {
+    rationaleList.push({
+      icon: 'âš ï¸',
+      vector: 'Virality & Social Contagion',
+      text: `Explicit instruction to propagate or forward message: "${uniqueArray(findings.forwarding.matches).slice(0, 3).join('", "')}".`
+    });
+  }
+
+  findings.formatting.details.forEach(detail => {
+    rationaleList.push({
+      icon: 'âš ï¸',
+      vector: 'Structural Anomaly',
+      text: detail
+    });
+  });
+
+  if (hasOfficialUrl) {
+    rationaleList.push({
+      icon: 'âœ…',
+      vector: 'Credibility Indicator',
+      text: 'Verified official public authority domain reference detected.'
+    });
+  }
+
+  if (hasBulletinCode) {
+    rationaleList.push({
+      icon: 'âœ…',
+      vector: 'Credibility Indicator',
+      text: 'Specific administrative disaster bulletin identifier included.'
+    });
+  }
+
+  if (rationaleList.length === 0) {
+    rationaleList.push({
+      icon: 'â„¹ï¸',
+      vector: 'Neutral Profile',
+      text: 'No high-temperature alarmist triggers, chain-forwarding formulas, or spoofed authority patterns were detected.'
+    });
+  }
+
+  // 11. Contextual Disaster Safety Guidance
+  const safetyGuidance = getDisasterSafetyGuidance(cleanText);
+
+  // 12. Recommended Action Formulation
+  let recommendedAction = {
+    heading: 'Verify Through Official Portals',
+    body: 'Exercise caution before acting or forwarding. Consult state disaster management bulletins.',
+    icon: 'â„¹ï¸'
+  };
+
+  if (finalScore >= 81) {
+    recommendedAction = {
+      heading: 'HALT FORWARDING IMMEDIATELY',
+      body: 'Critical hoax probability. Do not forward this alert to groups or social media. Check official fact-check portals.',
+      icon: 'â›”'
+    };
+  } else if (finalScore >= 61) {
+    recommendedAction = {
+      heading: 'Cross-Check Verified Media',
+      body: 'High likelihood of misleading content. Authentic emergency events will be broadcast across all major verified news channels.',
+      icon: 'âš ï¸'
+    };
+  } else if (finalScore >= 31) {
+    recommendedAction = {
+      heading: 'Verify With Local Authorities',
+      body: 'The advisory contains moderate concern. Look for official government press releases before making decisions.',
+      icon: 'ðŸ”'
+    };
+  } else {
+    recommendedAction = {
+      heading: 'Standard Safety Protocol',
+      body: 'The message exhibits standard official public safety communication patterns. Follow authorized civil defense directives.',
+      icon: 'âœ…'
+    };
+  }
+
+  return {
+    id: `SA-${Date.now().toString(36).toUpperCase()}`,
+    timestamp: new Date().toLocaleString(),
+    originalText: cleanText,
+    metadata,
+    riskScore: finalScore,
+    riskLevel,
+    classification,
+    bannerClass,
+    confidence,
+    firedVectorsCount,
+    vectorScores: {
+      urgency: Math.round(urgencyNorm),
+      fear: Math.round(fearNorm),
+      authority: Math.round(authorityNorm),
+      forwarding: Math.round(forwardingNorm),
+      formatting: Math.round(formatNorm)
+    },
+    highlights: deduplicateHighlights(highlights, cleanText),
+    rationale: rationaleList,
+    safetyGuidance,
+    recommendedAction
+  };
+}
+
+/**
+ * Returns contextual disaster safety protocols based on alert topic
+ */
+function getDisasterSafetyGuidance(text) {
+  const lower = text.toLowerCase();
+
+  if (/earthquake|tremor|seismic/i.test(lower)) {
+    return {
+      category: 'Seismic / Earthquake Protocol',
+      guides: [
+        { title: 'Drop, Cover & Hold On', text: 'Get under sturdy furniture immediately. Stay away from glass windows, exterior walls, and overhead lighting.' },
+        { title: 'If Outdoors', text: 'Move away from buildings, streetlights, and utility wires. Remain in open areas until shaking stops.' },
+        { title: 'Post-Tremor Actions', text: 'Check for gas leaks and structural damage. Expect aftershocks; avoid elevators.' }
+      ]
+    };
+  }
+
+  if (/flood|rainfall|inundation|water logging/i.test(lower)) {
+    return {
+      category: 'Flood & Severe Weather Protocol',
+      guides: [
+        { title: 'Seek Higher Ground', text: 'Evacuate low-lying zones immediately if directed by authorities.' },
+        { title: 'Turn Around, Donâ€™t Drown', text: 'Never attempt to drive or walk through moving water. 6 inches of water can knock you down.' },
+        { title: 'Electrical Safety', text: 'Switch off main electrical breakers if water enters your premises.' }
+      ]
+    };
+  }
+
+  if (/fire|explosion|blast|smoke/i.test(lower)) {
+    return {
+      category: 'Fire & Explosion Hazard Protocol',
+      guides: [
+        { title: 'Immediate Evacuation', text: 'Use marked fire exit stairs. Never use elevators during a fire alert.' },
+        { title: 'Stay Low Under Smoke', text: 'Crawl below heavy smoke where air is cleaner. Cover mouth with a damp cloth if available.' },
+        { title: 'Call Emergency Services', text: 'Dial local fire emergency dispatch immediately once in a safe assembly zone.' }
+      ]
+    };
+  }
+
+  if (/cyclone|hurricane|typhoon|storm/i.test(lower)) {
+    return {
+      category: 'Severe Cyclone & Storm Protocol',
+      guides: [
+        { title: 'Indoor Shelter', text: 'Remain in the strongest central room of your residence away from all glass windows.' },
+        { title: 'Emergency Supplies', text: 'Keep potable water, non-perishable food, flashlights, and power banks charged.' },
+        { title: 'Do Not Venture Out', text: 'Do not go outside during the calm "eye" of the storm; winds will reverse violently.' }
+      ]
+    };
+  }
+
+  if (/chemical|gas leak|toxic|poison/i.test(lower)) {
+    return {
+      category: 'Hazardous Chemical Protocol',
+      guides: [
+        { title: 'Upwind Evacuation', text: 'Move upwind and crosswind away from the vapor or gas source.' },
+        { title: 'Shelter in Place', text: 'Seal doors and windows with wet towels. Turn off all air conditioning and ventilation systems.' },
+        { title: 'Decontamination', text: 'Remove contaminated clothing immediately and rinse eyes/skin with clean water.' }
+      ]
+    };
+  }
+
+  // Default General Public Safety Guidance
+  return {
+    category: 'General Public Safety Advisory',
+    guides: [
+      { title: 'Rely on Official Channels', text: 'Tune to national radio, official disaster management websites, or verified police broadcasts.' },
+      { title: 'Emergency Communications', text: 'Keep phone lines free for first responders. Use text messaging to notify family.' },
+      { title: 'Follow First Responder Orders', text: 'Obey evacuation orders and civil defense instructions without hesitation.' }
+    ]
+  };
+}
+
+/**
+ * Merges overlapping text highlight spans and prepares HTML injection
+ */
+function generateHighlightedHtml(originalText, highlights) {
+  if (!highlights || highlights.length === 0) {
+    return escapeHtml(originalText);
+  }
+
+  highlights.sort((a, b) => a.start - b.start);
+
+  let html = '';
+  let currentIndex = 0;
+
+  highlights.forEach(hl => {
+    if (hl.start < currentIndex) return;
+
+    if (hl.start > currentIndex) {
+      html += escapeHtml(originalText.slice(currentIndex, hl.start));
+    }
+
+    const tokenText = originalText.slice(hl.start, hl.end);
+    const categoryClass = hl.category || 'urgency';
+    const tooltip = escapeHtml(hl.tip || 'Suspicious indicator');
+
+    html += `<span class="hl-token ${categoryClass}" data-tooltip="${tooltip}">${escapeHtml(tokenText)}</span>`;
+    currentIndex = hl.end;
+  });
+
+  if (currentIndex < originalText.length) {
+    html += escapeHtml(originalText.slice(currentIndex));
+  }
+
+  return html;
+}
+
+function deduplicateHighlights(highlights, text) {
+  highlights.sort((a, b) => (a.start - b.start) || (b.end - a.end));
+  const result = [];
+  let lastEnd = -1;
+
+  highlights.forEach(h => {
+    if (h.start >= lastEnd && h.end <= text.length) {
+      result.push(h);
+      lastEnd = h.end;
+    }
+  });
+  return result;
+}
+
+/* ============================================================================
+   4. UI RENDERING & USER-FRIENDLY CONTROLLERS
+   ============================================================================ */
+
+/**
+ * Renders analysis results into the DOM
+ */
+function renderResults(res) {
+  const container = document.getElementById('results-container');
+  container.classList.remove('hidden');
+
+  // 1. Result Banner
+  const banner = document.getElementById('result-banner');
+  banner.className = `result-banner ${res.bannerClass}`;
+
+  document.getElementById('risk-badge').textContent = `${res.riskLevel} RISK // ${res.riskScore}/100`;
+  document.getElementById('classification-pill').textContent = res.classification;
+  document.getElementById('result-timestamp').textContent = `Analyzed: ${res.timestamp}`;
+  document.getElementById('result-id').textContent = `ID: #${res.id}`;
+
+  // 2. User-Friendly Quick Verdict Box
+  const verdictIcon = document.getElementById('verdict-icon-big');
+  const verdictHeadline = document.getElementById('verdict-headline');
+  const verdictSubtext = document.getElementById('verdict-subtext');
+
+  if (res.riskScore >= 81) {
+    verdictIcon.textContent = 'ðŸ›‘';
+    verdictHeadline.textContent = 'DO NOT FORWARD â€” Critical Hoax Warning';
+    verdictSubtext.textContent = 'This message contains heavy panic indicators, extreme claims, or viral chain-forwarding pressure. Do not share with friends or family groups.';
+  } else if (res.riskScore >= 61) {
+    verdictIcon.textContent = 'âš ï¸';
+    verdictHeadline.textContent = 'High Misinformation Risk â€” Cross-Check Required';
+    verdictSubtext.textContent = 'This message uses alarming unverified language. Real public emergencies are always broadcast on major news networks and verified disaster handles.';
+  } else if (res.riskScore >= 31) {
+    verdictIcon.textContent = 'ðŸ”';
+    verdictHeadline.textContent = 'Needs Verification â€” Treat With Caution';
+    verdictSubtext.textContent = 'The alert mentions emergency terms but lacks verifiable government links or bulletin numbers. Verify with local news before taking action.';
+  } else {
+    verdictIcon.textContent = 'âœ…';
+    verdictHeadline.textContent = 'Likely Authentic Emergency Advisory';
+    verdictSubtext.textContent = 'The message matches standard public safety advisory phrasing and contains verified references. Follow instructions from local emergency authorities.';
+  }
+
+  // 3. Circular Gauge Meter
+  const gaugeFill = document.getElementById('gauge-fill');
+  const circumference = 2 * Math.PI * 52;
+  const offset = circumference - (res.riskScore / 100) * circumference;
+
+  gaugeFill.style.strokeDashoffset = offset;
+  gaugeFill.style.stroke = getRiskColor(res.riskScore);
+
+  animateScoreCounter('gauge-score-value', res.riskScore);
+  document.getElementById('gauge-status-text').textContent = res.classification;
+
+  // 4. Confidence Display
+  document.getElementById('confidence-value').textContent = `${res.confidence}%`;
+  document.getElementById('confidence-bar').style.width = `${res.confidence}%`;
+
+  // 5. Detected Vector Count & Tags
+  document.getElementById('flagged-triggers-count').textContent = res.firedVectorsCount;
+  const tagsContainer = document.getElementById('triggers-tags-list');
+  tagsContainer.innerHTML = '';
+
+  const vectorNames = [
+    { key: 'urgency', label: 'Urgency Spikes' },
+    { key: 'fear', label: 'Fear Inducers' },
+    { key: 'authority', label: 'Fake Authority' },
+    { key: 'forwarding', label: 'Virality Coercion' },
+    { key: 'formatting', label: 'Anomaly Formatting' }
+  ];
+
+  vectorNames.forEach(v => {
+    if (res.vectorScores[v.key] > 20) {
+      const tag = document.createElement('span');
+      tag.className = 'vector-tag';
+      tag.textContent = v.label;
+      tagsContainer.appendChild(tag);
+    }
+  });
+
+  if (tagsContainer.children.length === 0) {
+    tagsContainer.innerHTML = '<span class="vector-tag">Low Threat Profile</span>';
+  }
+
+  // 6. Recommended Action Card
+  document.getElementById('action-icon').textContent = res.recommendedAction.icon;
+  document.getElementById('action-heading').textContent = res.recommendedAction.heading;
+  document.getElementById('action-body').textContent = res.recommendedAction.body;
+
+  // 7. Interactive Message Highlighter
+  const highlightDisplay = document.getElementById('highlighted-text-display');
+  highlightDisplay.innerHTML = generateHighlightedHtml(res.originalText, res.highlights);
+
+  // 8. Vector Breakdown Grid
+  const breakdownGrid = document.getElementById('vectors-breakdown-grid');
+  breakdownGrid.innerHTML = '';
+
+  const breakdownData = [
+    { name: 'Urgency Pressure', score: res.vectorScores.urgency, color: 'var(--hl-urgency)' },
+    { name: 'Fear / Disaster', score: res.vectorScores.fear, color: 'var(--hl-fear)' },
+    { name: 'Authority Credibility', score: res.vectorScores.authority, color: 'var(--hl-authority)' },
+    { name: 'Forwarding Virality', score: res.vectorScores.forwarding, color: 'var(--hl-forwarding)' },
+    { name: 'Format Anomaly', score: res.vectorScores.formatting, color: 'var(--hl-format)' }
+  ];
+
+  breakdownData.forEach(item => {
+    const box = document.createElement('div');
+    box.className = 'vector-progress-box';
+    box.innerHTML = `
+      <div class="vector-box-header">
+        <span class="vector-name">${item.name}</span>
+        <span class="vector-score" style="color: ${item.color}">${item.score}%</span>
+      </div>
+      <div class="vector-bar-track">
+        <div class="vector-bar-fill" style="width: ${item.score}%; background-color: ${item.color}"></div>
+      </div>
+    `;
+    breakdownGrid.appendChild(box);
+  });
+
+  // 9. Rationale List
+  const rationaleListEl = document.getElementById('rationale-list');
+  rationaleListEl.innerHTML = '';
+  res.rationale.forEach(r => {
+    const li = document.createElement('li');
+    li.className = 'rationale-item';
+    li.innerHTML = `
+      <span class="rationale-bullet">${r.icon}</span>
+      <div>
+        <strong>[${escapeHtml(r.vector)}]</strong> ${escapeHtml(r.text)}
+      </div>
+    `;
+    rationaleListEl.appendChild(li);
+  });
+
+  // 10. Emergency Safety Protocol Guidance
+  document.getElementById('safety-category-title').textContent = res.safetyGuidance.category;
+  const guidelinesBox = document.getElementById('safety-guidelines-box');
+  guidelinesBox.innerHTML = '';
+
+  res.safetyGuidance.guides.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'safety-guide-card';
+    card.innerHTML = `
+      <h5>ðŸ›¡ï¸ ${escapeHtml(g.title)}</h5>
+      <p>${escapeHtml(g.text)}</p>
+    `;
+    guidelinesBox.appendChild(card);
+  });
+
+  // Smooth scroll to results
+  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/**
+ * Animated counter for score gauge
+ */
+function animateScoreCounter(elementId, targetValue) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  let current = 0;
+  const duration = 800;
+  const stepTime = 20;
+  const steps = duration / stepTime;
+  const increment = targetValue / steps;
+
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= targetValue) {
+      el.textContent = targetValue;
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.round(current);
+    }
+  }, stepTime);
+}
+
+function getRiskColor(score) {
+  if (score >= 81) return 'var(--risk-crit)';
+  if (score >= 61) return 'var(--risk-high)';
+  if (score >= 31) return 'var(--risk-med)';
+  return 'var(--risk-low)';
+}
+
+/* ============================================================================
+   5. SPEECH RECOGNITION & TEXT-TO-SPEECH (ACCESSIBILITY)
+   ============================================================================ */
+
+/**
+ * Initialize Speech-to-Text Microphone Dictation
+ */
+function initVoiceInput() {
+  const voiceBtn = document.getElementById('voice-input-btn');
+  const voiceLabel = document.getElementById('voice-btn-label');
+  const textarea = document.getElementById('alert-text');
+
+  if (!voiceBtn) return;
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    voiceBtn.title = 'Voice dictation is not supported in this browser.';
+    voiceBtn.addEventListener('click', () => {
+      showToast('Voice input is not supported in this browser. Please type or paste.', 'error');
+    });
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onstart = () => {
+    STATE.isRecording = true;
+    voiceBtn.classList.add('recording');
+    if (voiceLabel) voiceLabel.textContent = 'Listening...';
+    showToast('Microphone active. Speak the emergency alert message now.', 'info');
+  };
+
+  recognition.onresult = (event) => {
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      transcript += event.results[i][0].transcript;
+    }
+    if (textarea) {
+      textarea.value = transcript;
+      updateCharCounter();
+      hideValidationError();
+    }
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error);
+    STATE.isRecording = false;
+    voiceBtn.classList.remove('recording');
+    if (voiceLabel) voiceLabel.textContent = 'Dictate';
+    showToast(`Voice input error: ${event.error}`, 'error');
+  };
+
+  recognition.onend = () => {
+    STATE.isRecording = false;
+    voiceBtn.classList.remove('recording');
+    if (voiceLabel) voiceLabel.textContent = 'Dictate';
+    showToast('Voice dictation captured.', 'success');
+  };
+
+  voiceBtn.addEventListener('click', () => {
+    if (STATE.isRecording) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  });
+}
+
+/**
+ * Text-to-Speech Verdict Readout
+ */
+function initAudioVerdict() {
+  const listenBtn = document.getElementById('listen-verdict-btn');
+  const listenText = document.getElementById('listen-btn-text');
+
+  if (!listenBtn) return;
+
+  if (!('speechSynthesis' in window)) {
+    listenBtn.style.display = 'none';
+    return;
+  }
+
+  listenBtn.addEventListener('click', () => {
+    if (!STATE.currentAnalysis) {
+      showToast('Analyze an alert first to listen to the verdict.', 'info');
+      return;
+    }
+
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      STATE.isSpeaking = false;
+      listenText.textContent = 'Listen';
+      return;
+    }
+
+    const res = STATE.currentAnalysis;
+    const speechText = `Sentinel Alert Analysis result. Risk level: ${res.riskLevel}. Score: ${res.riskScore} out of 100. Classification: ${res.classification}. Recommended action: ${res.recommendedAction.heading}. ${res.recommendedAction.body}`;
+
+    const utterance = new SpeechSynthesisUtterance(speechText);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    utterance.onstart = () => {
+      STATE.isSpeaking = true;
+      listenText.textContent = 'Stop';
+      showToast('Playing audio verdict summary...', 'info');
+    };
+
+    utterance.onend = () => {
+      STATE.isSpeaking = false;
+      listenText.textContent = 'Listen';
+    };
+
+    utterance.onerror = () => {
+      STATE.isSpeaking = false;
+      listenText.textContent = 'Listen';
+    };
+
+    window.speechSynthesis.speak(utterance);
+  });
+}
+
+/**
+ * Generates WhatsApp Debunk Reply
+ */
+function initWhatsAppDebunk() {
+  const debunkBtn = document.getElementById('whatsapp-debunk-btn');
+  if (!debunkBtn) return;
+
+  debunkBtn.addEventListener('click', () => {
+    if (!STATE.currentAnalysis) return;
+    const res = STATE.currentAnalysis;
+
+    let replyText = `âš ï¸ *[FAKE EMERGENCY ALERT WARNING]* âš ï¸\n\n`;
+    if (res.riskScore >= 61) {
+      replyText += `Please *DO NOT FORWARD* the emergency message above. It was analyzed by Sentinel-Alert AI and flagged with a *${res.riskScore}/100 Risk Score (${res.classification})*.\n\n`;
+      replyText += `ðŸš© *Why it was flagged:* Contains unverified panic language and viral forwarding pressure.\n`;
+      replyText += `âœ… *Safe Action:* Real emergency bulletins are always published on official portals like https://ndma.gov.in and major live news channels. Let's verify before sharing! ðŸ™`;
+    } else {
+      replyText += `Checked on Sentinel-Alert AI: This emergency advisory appears *${res.classification} (Risk: ${res.riskScore}/100)*. Always follow instructions from local authorities.`;
+    }
+
+    navigator.clipboard.writeText(replyText).then(() => {
+      showToast('Copied polite WhatsApp debunk reply to clipboard! Ready to paste into groups.', 'success');
+    }).catch(() => {
+      showToast('Could not copy to clipboard.', 'error');
+    });
+  });
+}
+
+/* ============================================================================
+   6. HISTORY & LOCALSTORAGE MANAGEMENT
+   ============================================================================ */
+
+function loadHistoryFromStorage() {
+  try {
+    const raw = localStorage.getItem('sentinel_history');
+    STATE.history = raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    console.error('Failed to parse history from localStorage', e);
+    STATE.history = [];
+  }
+  renderHistoryTable();
+  updateDashboardStats();
+}
+
+function saveHistoryToStorage() {
+  try {
+    localStorage.setItem('sentinel_history', JSON.stringify(STATE.history.slice(0, 50)));
+  } catch (e) {
+    console.error('Failed to save history to localStorage', e);
+  }
+}
+
+function recordAnalysisToHistory(res) {
+  const historyItem = {
+    id: res.id,
+    timestamp: res.timestamp,
+    text: res.originalText,
+    source: res.metadata.source || 'Direct Entry',
+    riskScore: res.riskScore,
+    riskLevel: res.riskLevel,
+    classification: res.classification,
+    firedVectorsCount: res.firedVectorsCount
+  };
+
+  STATE.history.unshift(historyItem);
+  saveHistoryToStorage();
+  renderHistoryTable();
+  updateDashboardStats();
+}
+
+function deleteHistoryItem(id) {
+  STATE.history = STATE.history.filter(item => item.id !== id);
+  saveHistoryToStorage();
+  renderHistoryTable();
+  updateDashboardStats();
+  showToast('Analysis log entry deleted.', 'info');
+}
+
+function clearAllHistory() {
+  if (STATE.history.length === 0) {
+    showToast('History is already empty.', 'info');
+    return;
+  }
+  if (confirm('Are you sure you want to delete all saved analysis logs? This cannot be undone.')) {
+    STATE.history = [];
+    saveHistoryToStorage();
+    renderHistoryTable();
+    updateDashboardStats();
+    showToast('All analysis history logs cleared.', 'success');
+  }
+}
+
+function renderHistoryTable() {
+  const tbody = document.getElementById('history-tbody');
+  const emptyState = document.getElementById('empty-history-state');
+  const searchInput = document.getElementById('history-search-input');
+  const riskFilter = document.getElementById('history-risk-filter');
+
+  const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  const filterVal = riskFilter ? riskFilter.value : 'all';
+
+  if (!tbody) return;
+
+  const filtered = STATE.history.filter(item => {
+    const matchesSearch = !searchTerm ||
+      item.text.toLowerCase().includes(searchTerm) ||
+      item.source.toLowerCase().includes(searchTerm) ||
+      item.classification.toLowerCase().includes(searchTerm);
+
+    const matchesRisk = filterVal === 'all' || item.riskLevel.toLowerCase() === filterVal;
+    return matchesSearch && matchesRisk;
+  });
+
+  tbody.innerHTML = '';
+
+  if (filtered.length === 0) {
+    emptyState.classList.remove('hidden');
+    document.getElementById('history-table').classList.add('hidden');
+    return;
+  }
+
+  emptyState.classList.add('hidden');
+  document.getElementById('history-table').classList.remove('hidden');
+
+  filtered.forEach(item => {
+    const tr = document.createElement('tr');
+
+    let badgeClass = 'low';
+    if (item.riskLevel === 'CRITICAL') badgeClass = 'critical';
+    else if (item.riskLevel === 'HIGH') badgeClass = 'high';
+    else if (item.riskLevel === 'MEDIUM') badgeClass = 'medium';
+
+    tr.innerHTML = `
+      <td style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); white-space: nowrap;">
+        ${escapeHtml(item.timestamp)}
+      </td>
+      <td class="history-text-col" title="${escapeHtml(item.text)}">
+        ${escapeHtml(item.text)}
+      </td>
+      <td class="history-score-cell" style="color: ${getRiskColor(item.riskScore)}">
+        ${item.riskScore} / 100
+      </td>
+      <td>
+        <span class="chip-tag ${badgeClass}">${escapeHtml(item.classification)}</span>
+      </td>
+      <td style="font-family: var(--font-mono); font-size: 0.8rem;">
+        ${item.firedVectorsCount} flagged
+      </td>
+      <td class="actions-col">
+        <div class="history-row-actions">
+          <button type="button" class="history-action-btn load-btn" data-id="${item.id}" title="Re-load in Detector">
+            Load
+          </button>
+          <button type="button" class="history-action-btn delete" data-id="${item.id}" title="Delete Record">
+            Delete
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  tbody.querySelectorAll('.load-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const found = STATE.history.find(h => h.id === id);
+      if (found) {
+        document.getElementById('alert-text').value = found.text;
+        document.getElementById('alert-source').value = found.source !== 'Direct Entry' ? found.source : '';
+        updateCharCounter();
+        const analysis = analyzeAlert(found.text, { source: found.source });
+        STATE.currentAnalysis = analysis;
+        renderResults(analysis);
+        showToast('Loaded past alert analysis.', 'info');
+      }
+    });
+  });
+
+  tbody.querySelectorAll('.history-action-btn.delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      deleteHistoryItem(id);
+    });
+  });
+}
+
+/* ============================================================================
+   7. REAL-TIME DASHBOARD & METRICS COMPUTATION
+   ============================================================================ */
+
+function updateDashboardStats() {
+  const totalScans = STATE.history.length;
+  let critCount = 0;
+  let highCount = 0;
+  let medCount = 0;
+  let lowCount = 0;
+  let totalScoreSum = 0;
+
+  STATE.history.forEach(item => {
+    totalScoreSum += item.riskScore;
+    if (item.riskLevel === 'CRITICAL') critCount++;
+    else if (item.riskLevel === 'HIGH') highCount++;
+    else if (item.riskLevel === 'MEDIUM') medCount++;
+    else lowCount++;
+  });
+
+  const avgScore = totalScans > 0 ? Math.round(totalScoreSum / totalScans) : 0;
+
+  document.getElementById('stats-total-scans').textContent = totalScans;
+  document.getElementById('stats-critical-count').textContent = critCount;
+  document.getElementById('stats-high-count').textContent = highCount;
+  document.getElementById('stats-low-count').textContent = lowCount;
+  document.getElementById('donut-avg-score').textContent = avgScore;
+
+  const critPct = totalScans > 0 ? Math.round((critCount / totalScans) * 100) : 0;
+  const highPct = totalScans > 0 ? Math.round((highCount / totalScans) * 100) : 0;
+  const medPct = totalScans > 0 ? Math.round((medCount / totalScans) * 100) : 0;
+  const lowPct = totalScans > 0 ? Math.round((lowCount / totalScans) * 100) : 0;
+
+  document.getElementById('legend-crit-pct').textContent = `${critPct}% (${critCount})`;
+  document.getElementById('legend-high-pct').textContent = `${highPct}% (${highCount})`;
+  document.getElementById('legend-med-pct').textContent = `${medPct}% (${medCount})`;
+  document.getElementById('legend-low-pct').textContent = `${lowPct}% (${lowCount})`;
+
+  renderDonutChart(critCount, highCount, medCount, lowCount, totalScans);
+  renderPatternFrequencyBars();
+}
+
+function renderDonutChart(crit, high, med, low, total) {
+  const svg = document.getElementById('distribution-donut-svg');
+  if (!svg) return;
+
+  svg.innerHTML = '<circle cx="50" cy="50" r="38" class="donut-base"></circle>';
+
+  if (total === 0) return;
+
+  const radius = 38;
+  const circumference = 2 * Math.PI * radius;
+
+  const segments = [
+    { count: crit, color: 'var(--risk-crit)' },
+    { count: high, color: 'var(--risk-high)' },
+    { count: med, color: 'var(--risk-med)' },
+    { count: low, color: 'var(--risk-low)' }
+  ];
+
+  let accumulatedOffset = 0;
+
+  segments.forEach(seg => {
+    if (seg.count === 0) return;
+    const segmentLength = (seg.count / total) * circumference;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', '50');
+    circle.setAttribute('cy', '50');
+    circle.setAttribute('r', String(radius));
+    circle.setAttribute('class', 'donut-segment');
+    circle.setAttribute('stroke', seg.color);
+    circle.setAttribute('stroke-dasharray', `${segmentLength} ${circumference}`);
+    circle.setAttribute('stroke-dashoffset', String(-accumulatedOffset));
+    svg.appendChild(circle);
+
+    accumulatedOffset += segmentLength;
+  });
+}
+
+function renderPatternFrequencyBars() {
+  const container = document.getElementById('patterns-bar-chart');
+  if (!container) return;
+
+  let urgencyCount = 0;
+  let authorityCount = 0;
+  let forwardingCount = 0;
+  let formattingCount = 0;
+  let disasterCount = 0;
+
+  STATE.history.forEach(h => {
+    const lower = h.text.toLowerCase();
+    if (/urgent|breaking|immediately|right now|do not ignore/i.test(lower)) urgencyCount++;
+    if (/government confirmed|police confirmed|scientists|nasa|who confirmed/i.test(lower)) authorityCount++;
+    if (/forward|share this|send to 20|dont delete/i.test(lower)) forwardingCount++;
+    if (/[!]{2,}|\b[A-Z]{4,}\b/i.test(h.text)) formattingCount++;
+    if (/earthquake|flood|attack|explosion|cyclone/i.test(lower)) disasterCount++;
+  });
+
+  const maxVal = Math.max(1, urgencyCount, authorityCount, forwardingCount, formattingCount, disasterCount);
+
+  const patterns = [
+    { name: 'Artificial Urgency Spikes', count: urgencyCount, pct: Math.round((urgencyCount / maxVal) * 100) },
+    { name: 'Spoofed Authority Claims', count: authorityCount, pct: Math.round((authorityCount / maxVal) * 100) },
+    { name: 'Forwarding / Virality Coercion', count: forwardingCount, pct: Math.round((forwardingCount / maxVal) * 100) },
+    { name: 'Catastrophic Disaster Keywords', count: disasterCount, pct: Math.round((disasterCount / maxVal) * 100) },
+    { name: 'Exclamation & Caps Anomaly', count: formattingCount, pct: Math.round((formattingCount / maxVal) * 100) }
+  ];
+
+  container.innerHTML = '';
+  patterns.forEach(p => {
+    const item = document.createElement('div');
+    item.className = 'pattern-bar-item';
+    item.innerHTML = `
+      <div class="pattern-bar-meta">
+        <span class="pattern-name">${p.name}</span>
+        <span class="pattern-count">${p.count} detected</span>
+      </div>
+      <div class="pattern-track">
+        <div class="pattern-fill" style="width: ${p.pct}%;"></div>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+}
+
+/* ============================================================================
+   8. OPTIONAL AI API INTEGRATION SECTION (Modular Bridge)
+   ============================================================================ */
+
+async function callGeminiAPIBridge(text, apiKey) {
+  if (!apiKey || apiKey.trim() === '') {
+    throw new Error('No API Key provided. Using offline heuristics.');
+  }
+
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+  const prompt = `You are a forensic emergency misinformation detector. Analyze the following emergency alert:
+"${text}"
+
+Evaluate whether it exhibits fake urgency, unverified claims, or disaster hoaxes.
+Respond with ONLY valid JSON strictly matching this format:
+{
+  "riskScore": number (0-100),
+  "riskLevel": "LOW" | "MEDIUM" | "HIGH" | "CRITICAL",
+  "classification": "Likely Trustworthy" | "Needs Verification" | "Likely Misleading" | "Highly Suspicious",
+  "confidence": number (50-99),
+  "explanation": "concise rationale sentence",
+  "threatVectors": ["Urgency", "Unverified Authority", etc.]
+}`;
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.1 }
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`API returned HTTP status ${response.status}`);
+  }
+
+  const data = await response.json();
+  const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('Could not parse JSON from API response');
+
+  return JSON.parse(jsonMatch[0]);
+}
+
+/* ============================================================================
+   9. EVENT LISTENERS & INITIALIZATION
+   ============================================================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initNavigation();
+  initFormControls();
+  initSamplePresets();
+  initVoiceInput();
+  initAudioVerdict();
+  initWhatsAppDebunk();
+  initModals();
+  initExportAndPrint();
+  loadHistoryFromStorage();
+
+  // Instant demo trigger from hero button
+  const heroDemoBtn = document.getElementById('hero-demo-btn');
+  if (heroDemoBtn) {
+    heroDemoBtn.addEventListener('click', () => {
+      loadSampleAlert(1, true);
+    });
+  }
+
+  // If no history exists, pre-load demo analysis
+  if (STATE.history.length === 0) {
+    loadSampleAlert(1, false);
+  }
+});
+
+function initTheme() {
+  document.documentElement.setAttribute('data-theme', STATE.theme);
+  const toggleBtn = document.getElementById('theme-toggle-btn');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      STATE.theme = STATE.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', STATE.theme);
+      localStorage.setItem('sentinel_theme', STATE.theme);
+      showToast(`Switched to ${STATE.theme} mode`, 'info');
+    });
+  }
+}
+
+function initNavigation() {
+  const hamburger = document.getElementById('hamburger-btn');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navMenu) navMenu.classList.remove('open');
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+}
+
+function initFormControls() {
+  const textarea = document.getElementById('alert-text');
+  const form = document.getElementById('detector-form');
+  const clearBtn = document.getElementById('clear-input-btn');
+  const pasteBtn = document.getElementById('paste-btn');
+  const resetAllBtn = document.getElementById('reset-all-btn');
+  const metaToggle = document.getElementById('metadata-toggle');
+  const metaAccordion = document.querySelector('.metadata-accordion');
+
+  if (textarea) {
+    textarea.addEventListener('input', updateCharCounter);
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      textarea.value = '';
+      updateCharCounter();
+      hideValidationError();
+      textarea.focus();
+    });
+  }
+
+  if (pasteBtn) {
+    pasteBtn.addEventListener('click', async () => {
+      try {
+        const clipText = await navigator.clipboard.readText();
+        if (clipText) {
+          textarea.value = clipText;
+          updateCharCounter();
+          hideValidationError();
+          showToast('Pasted content from clipboard', 'success');
+        }
+      } catch (err) {
+        showToast('Unable to access clipboard. Please paste manually.', 'error');
+      }
+    });
+  }
+
+  if (metaToggle && metaAccordion) {
+    metaToggle.addEventListener('click', () => {
+      const isOpen = metaAccordion.classList.toggle('open');
+      metaToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  if (resetAllBtn) {
+    resetAllBtn.addEventListener('click', () => {
+      form.reset();
+      updateCharCounter();
+      hideValidationError();
+      document.getElementById('results-container').classList.add('hidden');
+      document.querySelectorAll('.sample-chip').forEach(c => c.classList.remove('active'));
+      showToast('Form reset.', 'info');
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = textarea.value.trim();
+
+      if (!text) {
+        showValidationError('Please enter or paste an emergency alert message to analyze.');
+        textarea.focus();
+        return;
+      }
+
+      if (text.length < 10) {
+        showValidationError('Alert message is too short (minimum 10 characters required for forensic analysis).');
+        return;
+      }
+
+      hideValidationError();
+      triggerAnalysis(text);
+    });
+  }
+}
+
+async function triggerAnalysis(text) {
+  const analyzeBtn = document.getElementById('analyze-btn');
+  const spinner = document.getElementById('analyze-spinner');
+  const btnText = document.getElementById('analyze-btn-text');
+
+  if (analyzeBtn) analyzeBtn.disabled = true;
+  if (spinner) spinner.classList.remove('hidden');
+  if (btnText) btnText.textContent = 'Running Forensic Engine...';
+
+  const metadata = {
+    source: document.getElementById('alert-source')?.value.trim() || '',
+    location: document.getElementById('alert-location')?.value.trim() || '',
+    time: document.getElementById('alert-time')?.value.trim() || ''
+  };
+
+  try {
+    await new Promise(r => setTimeout(r, 200));
+
+    let analysisResult;
+
+    if (STATE.inferenceMode === 'api' && STATE.apiKey) {
+      try {
+        const apiData = await callGeminiAPIBridge(text, STATE.apiKey);
+        analysisResult = analyzeAlert(text, metadata);
+        analysisResult.riskScore = apiData.riskScore ?? analysisResult.riskScore;
+        analysisResult.riskLevel = apiData.riskLevel ?? analysisResult.riskLevel;
+        analysisResult.classification = apiData.classification ?? analysisResult.classification;
+      } catch (apiErr) {
+        console.warn('API error, falling back to local heuristics:', apiErr);
+        showToast('External API call failed. Reverted to offline NLP engine.', 'info');
+        analysisResult = analyzeAlert(text, metadata);
+      }
+    } else {
+      analysisResult = analyzeAlert(text, metadata);
+    }
+
+    STATE.currentAnalysis = analysisResult;
+    renderResults(analysisResult);
+    recordAnalysisToHistory(analysisResult);
+    showToast(`Analysis Complete: ${analysisResult.classification}`, 'success');
+
+  } catch (error) {
+    console.error('Analysis failed:', error);
+    showToast('Analysis error occurred. Please try again.', 'error');
+  } finally {
+    if (analyzeBtn) analyzeBtn.disabled = false;
+    if (spinner) spinner.classList.add('hidden');
+    if (btnText) btnText.textContent = 'Analyze Emergency Alert';
+  }
+}
+
+function updateCharCounter() {
+  const textarea = document.getElementById('alert-text');
+  const counter = document.getElementById('char-count');
+  if (textarea && counter) {
+    const len = textarea.value.length;
+    counter.textContent = len;
+    if (len > 1800) counter.style.color = 'var(--risk-crit)';
+    else counter.style.color = 'var(--text-muted)';
+  }
+}
+
+function showValidationError(msg) {
+  const err = document.getElementById('validation-error');
+  if (err) {
+    err.textContent = msg;
+    err.classList.remove('hidden');
+  }
+}
+
+function hideValidationError() {
+  const err = document.getElementById('validation-error');
+  if (err) {
+    err.classList.add('hidden');
+  }
+}
+
+function initSamplePresets() {
+  const chips = document.querySelectorAll('.sample-chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const sampleId = parseInt(chip.getAttribute('data-sample'), 10);
+      loadSampleAlert(sampleId, true);
+    });
+  });
+}
+
+function loadSampleAlert(sampleId, shouldAnalyze = true) {
+  const sample = SAMPLE_ALERTS.find(s => s.id === sampleId);
+  if (!sample) return;
+
+  const textarea = document.getElementById('alert-text');
+  const sourceInput = document.getElementById('alert-source');
+  const locationInput = document.getElementById('alert-location');
+  const timeInput = document.getElementById('alert-time');
+
+  if (textarea) textarea.value = sample.text;
+  if (sourceInput) sourceInput.value = sample.source;
+  if (locationInput) locationInput.value = sample.location;
+  if (timeInput) timeInput.value = sample.time;
+
+  updateCharCounter();
+  hideValidationError();
+
+  document.querySelectorAll('.sample-chip').forEach(c => {
+    c.classList.toggle('active', parseInt(c.getAttribute('data-sample'), 10) === sampleId);
+  });
+
+  if (shouldAnalyze) {
+    triggerAnalysis(sample.text);
+  }
+}
+
+function initModals() {
+  // 1. Guide Modal
+  const guideModal = document.getElementById('guide-modal');
+  const openGuideBtn = document.getElementById('guide-modal-btn');
+  const closeGuideBtn = document.getElementById('close-guide-modal');
+  const closeGuideBtn2 = document.getElementById('close-guide-modal-btn2');
+
+  const openGuide = () => guideModal && guideModal.classList.remove('hidden');
+  const closeGuide = () => guideModal && guideModal.classList.add('hidden');
+
+  if (openGuideBtn) openGuideBtn.addEventListener('click', openGuide);
+  if (closeGuideBtn) closeGuideBtn.addEventListener('click', closeGuide);
+  if (closeGuideBtn2) closeGuideBtn2.addEventListener('click', closeGuide);
+
+  // 2. Resources Modal
+  const resModal = document.getElementById('resources-modal');
+  const openResBtn = document.getElementById('open-resources-modal-btn');
+  const closeResBtn = document.getElementById('close-resources-modal');
+  const closeResBtn2 = document.getElementById('close-resources-modal-btn2');
+  const footerResLink = document.getElementById('footer-resources-link');
+
+  const openResModal = () => resModal && resModal.classList.remove('hidden');
+  const closeResModal = () => resModal && resModal.classList.add('hidden');
+
+  if (openResBtn) openResBtn.addEventListener('click', openResModal);
+  if (footerResLink) footerResLink.addEventListener('click', (e) => { e.preventDefault(); openResModal(); });
+  if (closeResBtn) closeResBtn.addEventListener('click', closeResModal);
+  if (closeResBtn2) closeResBtn2.addEventListener('click', closeResModal);
+
+  // 3. API Config Modal
+  const apiModal = document.getElementById('api-modal');
+  const openApiBtn = document.getElementById('api-modal-btn');
+  const footerApiLink = document.getElementById('footer-api-link');
+  const closeApiBtn = document.getElementById('close-api-modal');
+  const cancelApiBtn = document.getElementById('cancel-api-modal');
+  const saveApiBtn = document.getElementById('save-api-settings');
+  const apiKeyInput = document.getElementById('user-api-key');
+
+  const openApiModal = () => {
+    if (apiKeyInput) apiKeyInput.value = STATE.apiKey;
+    if (apiModal) apiModal.classList.remove('hidden');
+  };
+  const closeApiModal = () => apiModal && apiModal.classList.add('hidden');
+
+  if (openApiBtn) openApiBtn.addEventListener('click', openApiModal);
+  if (footerApiLink) footerApiLink.addEventListener('click', (e) => { e.preventDefault(); openApiModal(); });
+  if (closeApiBtn) closeApiBtn.addEventListener('click', closeApiModal);
+  if (cancelApiBtn) cancelApiBtn.addEventListener('click', closeApiModal);
+
+  if (saveApiBtn) {
+    saveApiBtn.addEventListener('click', () => {
+      const mode = document.querySelector('input[name="inferenceEngine"]:checked')?.value || 'heuristic';
+      const key = apiKeyInput ? apiKeyInput.value.trim() : '';
+
+      STATE.inferenceMode = mode;
+      STATE.apiKey = key;
+      localStorage.setItem('sentinel_engine', mode);
+      sessionStorage.setItem('sentinel_api_key', key);
+
+      const badge = document.getElementById('engine-status-badge');
+      if (badge) {
+        badge.textContent = mode === 'api' ? 'Gemini API' : 'NLP Engine';
+      }
+
+      closeApiModal();
+      showToast(`Saved Engine Settings: ${mode.toUpperCase()} Mode`, 'success');
+    });
+  }
+
+  window.addEventListener('click', (e) => {
+    if (e.target === guideModal) closeGuide();
+    if (e.target === resModal) closeResModal();
+    if (e.target === apiModal) closeApiModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeGuide();
+      closeResModal();
+      closeApiModal();
+    }
+  });
+
+  const searchInput = document.getElementById('history-search-input');
+  const riskFilter = document.getElementById('history-risk-filter');
+  if (searchInput) searchInput.addEventListener('input', renderHistoryTable);
+  if (riskFilter) riskFilter.addEventListener('change', renderHistoryTable);
+
+  const clearAllBtn = document.getElementById('clear-all-history-btn');
+  if (clearAllBtn) clearAllBtn.addEventListener('click', clearAllHistory);
+}
+
+function initExportAndPrint() {
+  const copyBtn = document.getElementById('copy-summary-btn');
+  const printBtn = document.getElementById('print-report-btn');
+  const exportHistoryBtn = document.getElementById('export-history-btn');
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      if (!STATE.currentAnalysis) {
+        showToast('No active analysis to copy.', 'error');
+        return;
+      }
+      const res = STATE.currentAnalysis;
+      const summaryText = `--- SENTINEL-ALERT FORENSIC REPORT ---
+Analysis ID: #${res.id}
+Date/Time: ${res.timestamp}
+Original Alert: "${res.originalText}"
+Risk Score: ${res.riskScore} / 100 (${res.riskLevel} RISK)
+Classification: ${res.classification}
+AI Confidence: ${res.confidence}%
+Primary Recommendation: ${res.recommendedAction.heading} - ${res.recommendedAction.body}
+
+Key Rationale:
+${res.rationale.map(r => `* [${r.vector}] ${r.text}`).join('\n')}
+
+SAFETY NOTICE: This is an automated decision-support assessment. During physical emergencies, always follow instructions from local emergency authorities.`;
+
+      navigator.clipboard.writeText(summaryText).then(() => {
+        showToast('Forensic summary copied to clipboard!', 'success');
+      }).catch(() => {
+        showToast('Failed to copy to clipboard.', 'error');
+      });
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      window.print();
+    });
+  }
+
+  if (exportHistoryBtn) {
+    exportHistoryBtn.addEventListener('click', () => {
+      if (STATE.history.length === 0) {
+        showToast('No history records available to export.', 'info');
+        return;
+      }
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(STATE.history, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `sentinel_alert_history_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast('History exported as JSON file.', 'success');
+    });
+  }
+}
+
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+
+  let icon = 'â„¹ï¸';
+  if (type === 'success') icon = 'âœ…';
+  else if (type === 'error') icon = 'âŒ';
+
+  toast.innerHTML = `<span>${icon}</span> <span>${escapeHtml(message)}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function uniqueArray(arr) {
+  return [...new Set(arr)];
+}
+
+</script>
+</body>
+</html>
+
