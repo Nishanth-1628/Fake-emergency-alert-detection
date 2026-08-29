@@ -11,7 +11,6 @@ During natural disasters, terrorist threats, epidemics, and civil emergencies, u
 **SENTINEL-ALERT** is an emergency information security and decision-support web application designed to analyze broadcast alerts, SMS forwards, and social posts. It generates an immediate forensic risk assessment, classifies the probability of misinformation, provides transparent **Explainable AI (XAI)** diagnostics, highlights manipulative phrasing, guides users through authentic verification channels, and offers context-aware survival safety protocols .
    
 ---
-   
 ## 🚀 2. Strict Technology Stack
 
 This application is built with **ZERO external frameworks, backend servers, or third-party libraries**:
