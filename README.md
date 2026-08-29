@@ -3,7 +3,7 @@
 > **A real-time, explainable, client-side crisis information verification platform built with pure HTML5, CSS3, and Vanilla JavaScript.**
 
 ---
-
+   
 ## 📌 1. Project Overview
 
 During natural disasters, terrorist threats, epidemics, and civil emergencies, unverified rumors and synthetic alarmist broadcasts propagate exponentially faster than verified emergency bulletins. Panic-driven viral forwarding leads to stampedes, resource misallocation, civil disruption, and immense psychological distress.
